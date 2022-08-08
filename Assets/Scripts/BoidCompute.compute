@@ -1,0 +1,72 @@
+﻿#pragma kernel CSMain
+static const int threadGroupSize = 1024;
+
+struct Boid
+{
+    //boid information
+    float3 position;
+    float3 displacementVector;
+
+    //neighbourhood information
+    float3 avgPosition;
+    float3 avgDisplacementVector;
+    float3 avgAvoidanceDisplacementVector;
+};
+
+RWStructuredBuffer<Boid> boids;
+int totalNumberOfBoids;
+float viewDistance;
+float avoidanceDistance;
+
+[numthreads(threadGroupSize,1,1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int currentBoidIndex = id.x;
+
+    boids[id.x].avgPosition = 0;
+    boids[id.x].avgDisplacementVector = 0;
+    boids[id.x].avgAvoidanceDisplacementVector = 0;
+
+    int numNeighbours = 0;
+    int numNeighboursToAvoid = 0;
+
+
+    for (int potentialNeighbourIndex = 0; potentialNeighbourIndex < totalNumberOfBoids; potentialNeighbourIndex++)
+    {
+        if (currentBoidIndex != potentialNeighbourIndex)
+        {
+            Boid potentialNeighbour = boids[potentialNeighbourIndex];
+
+            float3 displacementVectorToNeighbour = potentialNeighbour.position - boids[currentBoidIndex].position;
+
+            float distanceToNeighbour = sqrt(displacementVectorToNeighbour.x * displacementVectorToNeighbour.x +
+                displacementVectorToNeighbour.y * displacementVectorToNeighbour.y +
+                displacementVectorToNeighbour.z * displacementVectorToNeighbour.z);
+
+            if (distanceToNeighbour < viewDistance)
+            {
+                numNeighbours += 1;
+                boids[currentBoidIndex].avgPosition += potentialNeighbour.position;
+                boids[currentBoidIndex].avgDisplacementVector += potentialNeighbour.displacementVector;
+
+                if (distanceToNeighbour < avoidanceDistance)
+                {
+                    numNeighboursToAvoid += 1;
+                    boids[currentBoidIndex].avgAvoidanceDisplacementVector += -displacementVectorToNeighbour /
+                        distanceToNeighbour;
+                }
+            }
+        }
+    }
+
+    if (numNeighbours > 0)
+    {
+        boids[currentBoidIndex].avgDisplacementVector /= numNeighbours;
+        boids[currentBoidIndex].avgPosition /= numNeighbours;
+    }
+
+    if (numNeighboursToAvoid > 0)
+    {
+        boids[currentBoidIndex].avgAvoidanceDisplacementVector /= numNeighboursToAvoid;
+    }
+}
