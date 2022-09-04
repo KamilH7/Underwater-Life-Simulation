@@ -1,34 +1,45 @@
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class FlipNormals : MonoBehaviour
 {
-    #region Private Methods
+    public bool removeExistingColliders = true;
+
+    #region Public Methods
 
     [Button]
-    private void Flip()
+    private void CreateInvertedMeshCollider()
+    {
+        if (removeExistingColliders)
+        {
+            RemoveExistingColliders();
+        }
+
+        InvertMesh();
+
+        gameObject.AddComponent<MeshCollider>();
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    private void RemoveExistingColliders()
+    {
+        Collider[] colliders = GetComponents<Collider>();
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            DestroyImmediate(colliders[i]);
+        }
+    }
+
+    [Button]
+    private void InvertMesh()
     {
         Mesh mesh = GetComponent<MeshFilter>().mesh;
-        Vector3[] normals = mesh.normals;
-
-        for (int i = 0; i < normals.Length; i++)
-        {
-            normals[i] = -1 * normals[i];
-        }
-
-        mesh.normals = normals;
-
-        for (int i = 0; i < mesh.subMeshCount; i++)
-        {
-            int[] tris = mesh.GetTriangles(i);
-
-            for (int j = 0; j < tris.Length; j += 3)
-            {
-                (tris[j], tris[j + 1]) = (tris[j + 1], tris[j]);
-            }
-
-            mesh.SetTriangles(tris, i);
-        }
+        mesh.triangles = mesh.triangles.Reverse().ToArray();
     }
 
     #endregion

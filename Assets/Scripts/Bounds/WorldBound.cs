@@ -1,69 +1,67 @@
 using UnityEngine;
 
-public class WorldBound : MonoBehaviour
+namespace Shaders
 {
-    #region Private Fields
-
-    [Header("Settings")]
-    [SerializeField]
-    private float minResistanceDistance = 1;
-    [SerializeField]
-    private float maxResistanceDistance  = 0;
-    [SerializeField]
-    private bool showBounds = false;
-    [SerializeField]
-    private Renderer renderer;
-    
-    private Vector3 center;
-    private float radius;
-
-    #endregion
-
-    #region Unity Callbacks
-
-    private void Start()
+    public class WorldBound : MonoBehaviour
     {
-        center = transform.position;
-        radius = GetSphereRadius();
-    }
+        #region Private Fields
 
-    #endregion
+        [Header("Settings")] [SerializeField] private float minResistanceDistance = 1;
+        [SerializeField] private float maxResistanceDistance = 0;
+        [SerializeField] private bool showBounds = false;
+        [SerializeField] private Renderer renderer;
 
-    public float GetResistance(Vector3 point)
-    {
-        float distanceFromCenter = (point - center).magnitude;
-        float minDistance = radius - minResistanceDistance;
+        private Vector3 center;
+        private float radius;
 
-        if (minDistance < distanceFromCenter)
+        #endregion
+
+        #region Unity Callbacks
+
+        private void Start()
         {
-            float absoluteDistance = minResistanceDistance - maxResistanceDistance;
-            float distanceFromMin = Mathf.Abs(minDistance - distanceFromCenter);
-            float percentage = Mathf.Clamp01(distanceFromMin / absoluteDistance);
-            return percentage;
+            center = transform.position;
+            radius = GetSphereRadius();
         }
 
-        return 0;
-    }  
+        #endregion
 
-    #region Private Methods
-
-    private float GetSphereRadius()
-    {
-        return renderer.bounds.extents.magnitude/2;
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (showBounds)
+        public float GetResistance(Vector3 point)
         {
-            var position = transform.position;
-            
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(position, GetSphereRadius() - maxResistanceDistance);
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(position, GetSphereRadius() - minResistanceDistance);
-        }
-    }
+            float distanceFromCenter = (point - center).magnitude;
+            float minDistance = radius - minResistanceDistance;
 
-    #endregion
+            if (minDistance < distanceFromCenter)
+            {
+                float absoluteDistance = minResistanceDistance - maxResistanceDistance;
+                float distanceFromMin = Mathf.Abs(minDistance - distanceFromCenter);
+                float percentage = Mathf.Clamp01(distanceFromMin / absoluteDistance);
+                return percentage;
+            }
+
+            return 0;
+        }
+
+        #region Private Methods
+
+        private float GetSphereRadius()
+        {
+            return renderer.bounds.extents.magnitude / 2;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (showBounds)
+            {
+                var position = transform.position;
+
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(position, GetSphereRadius() - maxResistanceDistance);
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere(position, GetSphereRadius() - minResistanceDistance);
+            }
+        }
+
+        #endregion
+    }
 }
