@@ -5,9 +5,13 @@ public class SimpleFish : MonoBehaviour, IFish
     #region Serialized Fields
 
     [SerializeField]
+    protected Transform target;
+    [SerializeField]
     protected float speed;
     [SerializeField]
     protected float collisionDetectDistance;
+    [SerializeField, Range(0,1)]
+    protected float steerForce;
     [SerializeField]
     protected bool debugMode;
 
@@ -24,7 +28,18 @@ public class SimpleFish : MonoBehaviour, IFish
 
     protected void Update()
     {
-        Vector3 moveVector = transform.forward * Speed;
+        Vector3 moveDirection;
+        
+        if (target)
+        {
+            moveDirection = (transform.position - target.position).normalized;
+        }
+        else
+        {
+            moveDirection = transform.forward;
+        }
+        
+        Vector3 moveVector = moveDirection * Speed;
         Move(moveVector);
     }
 
@@ -32,7 +47,7 @@ public class SimpleFish : MonoBehaviour, IFish
     {
         if (debugMode)
         {
-            Gizmos.color = IsHeadedForObstacle() ? Color.red : Color.green;
+            Gizmos.color = GetCollisionInfo(transform.position, transform.forward).collider ? Color.red : Color.green;
             Gizmos.DrawLine(transform.position, transform.position + transform.forward * CollisionDetectDistance);
         }
     }
@@ -55,33 +70,47 @@ public class SimpleFish : MonoBehaviour, IFish
 
     protected void Move(Vector3 moveVector)
     {
-        if (IsHeadedForObstacle())
-        {
-            moveVector = GetAvoidanceData().GetAvoidanceVector(moveVector);
-        }
-
+        moveVector = SteerInto(moveVector);
+        moveVector = AvoidObstacles(moveVector);
         transform.forward = moveVector;
         transform.position += moveVector * Time.deltaTime;
     }
 
-    protected virtual bool IsHeadedForObstacle()
+    protected Vector3 SteerInto(Vector3 steerInto)
     {
-        return GetCollisionInfo(transform.position, transform.forward).collider;
+        Vector3 directionChange = transform.forward - steerInto.normalized;
+        Vector3 steeredDirectionChange = directionChange * steerForce;
+        Vector3 goalDirection = transform.forward + steeredDirectionChange;
+
+        return steerInto.magnitude * goalDirection;
+    }
+    
+    protected Vector3 AvoidObstacles(Vector3 moveVector)
+    {
+        RaycastHit hitInfo = GetCollisionInfo(transform.position, transform.forward);
+
+        if (hitInfo.collider)
+        {
+            moveVector = GetAvoidanceData(hitInfo).GetAvoidanceVector(moveVector);
+        }
+
+        return moveVector;
     }
 
-    protected virtual AvoidanceData GetAvoidanceData()
+    protected virtual AvoidanceData GetAvoidanceData(RaycastHit currentHitInfo)
     {
         Vector3[] rayDirections = Values.Instance.GoldenRatioDirections;
-
+        Transform cachedTransform = transform;
+        
         for (int i = 0; i < rayDirections.Length; i++)
         {
-            var dir = transform.TransformDirection(rayDirections[i]);
+            var dir = cachedTransform.TransformDirection(rayDirections[i]);
 
-            RaycastHit hit = GetCollisionInfo(transform.position, dir);
+            RaycastHit hit = GetCollisionInfo(cachedTransform.position, dir);
 
             if (hit.collider == null)
             {
-                return new AvoidanceData(dir, hit.distance, CollisionDetectDistance);
+                return new AvoidanceData(dir, currentHitInfo.distance, CollisionDetectDistance);
             }
         }
 

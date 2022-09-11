@@ -19,10 +19,11 @@ public class AvoidanceData
 
     public Vector3 GetAvoidanceVector(Vector3 initialMovementVector)
     {
-        float currentSpeed = initialMovementVector.magnitude;
-        Vector3 moveDirection = ClearDirection * AvoidanceWeight + initialMovementVector.normalized * (1 - AvoidanceWeight);
+        Vector3 clearVector = ClearDirection * AvoidanceWeight;
+        Vector3 initialVector = initialMovementVector.normalized * (1 - AvoidanceWeight);
+        Vector3 avoidanceDirection = clearVector + initialVector;
 
-        return moveDirection * currentSpeed;
+        return avoidanceDirection * initialMovementVector.magnitude;
     }
 
     #endregion
@@ -33,7 +34,7 @@ public class AvoidanceData
     {
         float minDistance = collisionDetectDistance;
 
-        return 1 - distanceFromObstacle / minDistance;
+        return Mathf.Abs(1 - distanceFromObstacle / minDistance);
     }
 
     #endregion
