@@ -6,43 +6,35 @@ public class SimpleFish : MonoBehaviour, IFish
 
     [SerializeField]
     protected float speed;
-
-    #endregion
-
-    #region Private Fields
-
-    protected Transform location;
+    [SerializeField]
+    protected float collisionDetectDistance;
+    [SerializeField]
+    protected bool debugMode;
 
     #endregion
 
     #region Public Properties
 
-    public Transform Location => location;
     public float Speed => speed;
-    
-    [field: SerializeField]
-    public float CollisionDetectDistance { get; set; }
+    public float CollisionDetectDistance => collisionDetectDistance;
 
     #endregion
 
     #region Unity Callbacks
 
-    protected virtual void Start()
-    {
-        InitializeReferences();
-    }
-
     protected void Update()
     {
-        Vector3 moveVector = Vector3.forward * Speed;
-
-        if (IsHeadedForObstacle())
-        {
-            AvoidanceData avoidanceData = GetAvoidanceData();
-            moveVector = avoidanceData.GetAvoidanceVector(moveVector);
-        }
-
+        Vector3 moveVector = transform.forward * Speed;
         Move(moveVector);
+    }
+
+    protected virtual void OnDrawGizmos()
+    {
+        if (debugMode)
+        {
+            Gizmos.color = IsHeadedForObstacle() ? Color.red : Color.green;
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * CollisionDetectDistance);
+        }
     }
 
     #endregion
@@ -51,9 +43,9 @@ public class SimpleFish : MonoBehaviour, IFish
 
     public void Spawn(Vector3 position, Vector3 direction, Transform parent, float speed)
     {
-        location.position = position;
-        location.forward = direction;
-        location.parent = parent;
+        transform.position = position;
+        transform.forward = direction;
+        transform.parent = parent;
         this.speed = speed;
     }
 
@@ -65,16 +57,16 @@ public class SimpleFish : MonoBehaviour, IFish
     {
         if (IsHeadedForObstacle())
         {
-            AvoidanceData avoidanceData = GetAvoidanceData();
-            moveVector = avoidanceData.GetAvoidanceVector(moveVector);
+            moveVector = GetAvoidanceData().GetAvoidanceVector(moveVector);
         }
 
+        transform.forward = moveVector;
         transform.position += moveVector * Time.deltaTime;
     }
 
     protected virtual bool IsHeadedForObstacle()
     {
-        return GetCollisionInfo(location.position, location.forward).collider;
+        return GetCollisionInfo(transform.position, transform.forward).collider;
     }
 
     protected virtual AvoidanceData GetAvoidanceData()
@@ -83,40 +75,24 @@ public class SimpleFish : MonoBehaviour, IFish
 
         for (int i = 0; i < rayDirections.Length; i++)
         {
-            var dir = location.TransformDirection(rayDirections[i]);
-            
-            RaycastHit hit = GetCollisionInfo(location.position, dir);
+            var dir = transform.TransformDirection(rayDirections[i]);
+
+            RaycastHit hit = GetCollisionInfo(transform.position, dir);
 
             if (hit.collider == null)
             {
-                return new AvoidanceData(dir, GetAvoidanceWeight(hit.distance));
+                return new AvoidanceData(dir, hit.distance, CollisionDetectDistance);
             }
         }
 
         return null;
     }
 
-    protected virtual float GetAvoidanceWeight(float distanceFromObstacle)
-    {
-        float minDistance = CollisionDetectDistance;
-
-        return 1 - distanceFromObstacle / minDistance;
-    }
-
     protected virtual RaycastHit GetCollisionInfo(Vector3 position, Vector3 raycastDirection)
     {
-        Physics.Raycast(location.position, raycastDirection, out RaycastHit hit, CollisionDetectDistance, Values.Instance.ObstacleLayer);
+        Physics.Raycast(transform.position, raycastDirection, out RaycastHit hit, CollisionDetectDistance, Values.Instance.ObstacleLayer);
 
         return hit;
-    }
-
-    #endregion
-
-    #region Private Methods
-
-    private void InitializeReferences()
-    {
-        location = transform;
     }
 
     #endregion

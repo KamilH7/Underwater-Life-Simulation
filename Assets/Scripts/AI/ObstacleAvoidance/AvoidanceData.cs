@@ -2,17 +2,39 @@ using UnityEngine;
 
 public class AvoidanceData
 {
-    public Vector3 ClearDirection { get; }
-    public float AvoidanceWeight { get; }
+    private Vector3 ClearDirection { get; }
+    private float AvoidanceWeight { get; }
 
-    public AvoidanceData(Vector3 clearDirection, float avoidanceWeight)
+    #region Constructors
+
+    public AvoidanceData(Vector3 clearDirection, float distanceFromObstacle, float collisionDetectDistance)
     {
         ClearDirection = clearDirection;
-        AvoidanceWeight = avoidanceWeight;
+        AvoidanceWeight = GetAvoidanceWeight(distanceFromObstacle, collisionDetectDistance);
     }
+
+    #endregion
+
+    #region Public Methods
 
     public Vector3 GetAvoidanceVector(Vector3 initialMovementVector)
     {
-        return ClearDirection * AvoidanceWeight + initialMovementVector * (1 - AvoidanceWeight);
+        float currentSpeed = initialMovementVector.magnitude;
+        Vector3 moveDirection = ClearDirection * AvoidanceWeight + initialMovementVector.normalized * (1 - AvoidanceWeight);
+
+        return moveDirection * currentSpeed;
     }
+
+    #endregion
+
+    #region Private Methods
+
+    private float GetAvoidanceWeight(float distanceFromObstacle, float collisionDetectDistance)
+    {
+        float minDistance = collisionDetectDistance;
+
+        return 1 - distanceFromObstacle / minDistance;
+    }
+
+    #endregion
 }
