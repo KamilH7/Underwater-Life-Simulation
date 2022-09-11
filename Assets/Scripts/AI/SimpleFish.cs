@@ -26,7 +26,7 @@ public class SimpleFish : MonoBehaviour, IFish
 
     #region Unity Callbacks
 
-    protected void Update()
+    protected virtual void Update()
     {
         Vector3 moveDirection;
         
@@ -43,7 +43,7 @@ public class SimpleFish : MonoBehaviour, IFish
         Move(moveVector);
     }
 
-    protected virtual void OnDrawGizmos()
+    protected virtual void OnDrawGizmosSelected()
     {
         if (debugMode)
         {

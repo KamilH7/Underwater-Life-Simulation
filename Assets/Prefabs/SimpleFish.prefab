@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6349151928875962174}
   - component: {fileID: 4445720962774967277}
   m_Layer: 0
-  m_Name: Fish
+  m_Name: SimpleFish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d290cb4d81f3b1b41a629053f44aa73f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
   speed: 5
+  collisionDetectDistance: 5
+  steerForce: 0.01
+  debugMode: 1
 --- !u!1001 &1279554406846016213
 PrefabInstance:
   m_ObjectHideFlags: 0
