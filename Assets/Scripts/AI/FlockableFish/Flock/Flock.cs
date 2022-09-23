@@ -14,18 +14,18 @@ public class Flock : MonoBehaviour
     private FlockableFish fishPrefab;
     [SerializeField, ShowIf(nameof(spawnAutomatically))]
     private int spawnAmount;
-    [field: SerializeField, ShowIf("@!" + nameof(spawnAutomatically))]
+    [field: SerializeField]
     public List<FlockableFish> CurrentFishes { get; private set; } = new();
 
     #endregion
 
     #region Public Properties
 
-    [field: Header("Behaviour Settings"), Range(0, 1), SerializeField]
+    [field: Header("Behaviour Settings"), Range(0, 10), SerializeField]
     public float AlignmentBehaviour { get; private set; }
-    [field: Range(0, 1), SerializeField]
+    [field: Range(0, 10), SerializeField]
     public float CohesionBehaviour { get; private set; }
-    [field: Range(0, 1), SerializeField]
+    [field: Range(0, 10), SerializeField]
     public float SeparationBehaviour { get; private set; }
     [field: SerializeField]
     public float ViewDistance { get; private set; }
@@ -65,6 +65,8 @@ public class Flock : MonoBehaviour
     
     private void SpawnFlock()
     {
+        CurrentFishes = new List<FlockableFish>();
+        
         for (int i = 0; i < spawnAmount; i++)
         {
             Vector3 spawnPosition = Random.insideUnitSphere * spawnRange;

@@ -46,10 +46,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 5
-  collisionDetectDistance: 5
-  steerForce: 0.004
-  debugMode: 1
+  minSpeed: 0.1
+  maxSpeed: 5
+  collisionDetectDistance: 1
+  steerForce: 0.015
+  debugMode: 0
+  collisionDetectedColor: {r: 0.6415094, g: 0.017251343, b: 0, a: 1}
+  collisionNotDetectedColor: {r: 0, g: 1, b: 0.054832935, a: 1}
+  flock: {fileID: 0}
+  avgPosition: {x: 0, y: 0, z: 0}
+  avgDisplacementVector: {x: 0, y: 0, z: 0}
+  avgAvoidanceDisplacementVector: {x: 0, y: 0, z: 0}
+  alignmentBehaviourColour: {r: 1, g: 0.8399383, b: 0, a: 1}
+  cohesionBehaviourColour: {r: 1, g: 0, b: 0.4858966, a: 1}
+  separationBehaviourColour: {r: 0, g: 0.21884155, b: 1, a: 1}
+  finalBehaviourColour: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1279554406846016213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64,6 +75,18 @@ PrefabInstance:
     - target: {fileID: 2297401192619346214, guid: 2222d6bba88bffc42b1038e1a5b7e05d, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2297401192619346214, guid: 2222d6bba88bffc42b1038e1a5b7e05d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 23.7624
+      objectReference: {fileID: 0}
+    - target: {fileID: 2297401192619346214, guid: 2222d6bba88bffc42b1038e1a5b7e05d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 43.72281
+      objectReference: {fileID: 0}
+    - target: {fileID: 2297401192619346214, guid: 2222d6bba88bffc42b1038e1a5b7e05d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 23.7624
       objectReference: {fileID: 0}
     - target: {fileID: 2297401192619346214, guid: 2222d6bba88bffc42b1038e1a5b7e05d, type: 3}
       propertyPath: m_LocalPosition.x

@@ -30,7 +30,8 @@ public class FlockableFish : SimpleFish
 
     protected override void Update()
     {
-        Move(GetBehaviourDirection() * speed);
+        DrawDebug();
+        Move(GetBehaviour());
     }
 
     #endregion
@@ -53,7 +54,7 @@ public class FlockableFish : SimpleFish
 
     #region Private Methods
 
-    private Vector3 GetBehaviourDirection()
+    private Vector3 GetBehaviour()
     {
         Vector3 moveDirection = transform.forward;
 
@@ -61,7 +62,7 @@ public class FlockableFish : SimpleFish
         moveDirection += CohesionBehaviour();
         moveDirection += SeparationBehaviour();
 
-        return moveDirection.normalized;
+        return moveDirection;
     }
 
     private Vector3 AlignmentBehaviour()
@@ -81,25 +82,18 @@ public class FlockableFish : SimpleFish
         return avgAvoidanceDisplacementVector * flock.SeparationBehaviour;
     }
 
-    protected override void OnDrawGizmosSelected()
+    protected override void DrawDebug()
     {
-        base.OnDrawGizmosSelected();
+        base.DrawDebug();
 
-        if (debugMode && Application.isPlaying)
+        if (debugMode)
         {
-            Vector3 position = transform.position;
+            Vector3 currentPosition = transform.position;
             
-            Gizmos.color = alignmentBehaviourColour;
-            Gizmos.DrawLine(position, position + AlignmentBehaviour());
-            
-            Gizmos.color = cohesionBehaviourColour;
-            Gizmos.DrawLine(position, position + CohesionBehaviour());
-            
-            Gizmos.color = separationBehaviourColour;
-            Gizmos.DrawLine(position, position + SeparationBehaviour());
-            
-            Gizmos.color = finalBehaviourColour;
-            Gizmos.DrawLine(position, position + GetBehaviourDirection());
+            Debug.DrawLine(currentPosition, currentPosition + AlignmentBehaviour(), alignmentBehaviourColour);
+            Debug.DrawLine(currentPosition, currentPosition + CohesionBehaviour(), cohesionBehaviourColour);
+            Debug.DrawLine(currentPosition, currentPosition + SeparationBehaviour(), separationBehaviourColour);
+            Debug.DrawLine(currentPosition, currentPosition + GetBehaviour(), finalBehaviourColour);
         }
     }
 

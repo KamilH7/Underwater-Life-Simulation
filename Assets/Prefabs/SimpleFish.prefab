@@ -47,9 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speed: 5
-  collisionDetectDistance: 5
-  steerForce: 0.01
+  collisionDetectDistance: 1
+  steerForce: 0.015
   debugMode: 1
+  collisionDetectedColor: {r: 0, g: 0, b: 0, a: 0}
+  collisionNotDetectedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1279554406846016213
 PrefabInstance:
   m_ObjectHideFlags: 0
