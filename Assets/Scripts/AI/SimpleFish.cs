@@ -9,6 +9,8 @@ public class SimpleFish : MonoBehaviour, IFish
     protected Transform target;
     [SerializeField]
     protected float minSpeed;
+    [SerializeField, ReadOnly]
+    protected Vector3 moveVector;
     [SerializeField]
     protected float maxSpeed;
     [SerializeField]
@@ -17,6 +19,8 @@ public class SimpleFish : MonoBehaviour, IFish
     protected float steerForce;
     [SerializeField]
     protected bool debugMode;
+    [SerializeField, ShowIf(nameof(debugMode))]
+    private Color moveVectorColor;
     [SerializeField, ShowIf(nameof(debugMode))]
     private Color collisionDetectedColor;
     [SerializeField, ShowIf(nameof(debugMode))]
@@ -29,6 +33,7 @@ public class SimpleFish : MonoBehaviour, IFish
     public float MinSpeed { get => minSpeed; }
     public float MaxSpeed { get => maxSpeed; }
     public float CollisionDetectDistance { get => collisionDetectDistance; }
+    public Vector3 MoveVector { get => moveVector; }
 
     #endregion
 
@@ -65,6 +70,11 @@ public class SimpleFish : MonoBehaviour, IFish
         transform.parent = parent;
     }
 
+    public virtual void Kill()
+    {
+        Destroy(this);
+    }
+
     #endregion
 
     #region Protected Methods
@@ -79,7 +89,9 @@ public class SimpleFish : MonoBehaviour, IFish
             Vector3 origin = transform.position;
             Vector3 destination = origin + transform.forward * collisionDetectDistance;
             Debug.DrawLine(origin, destination, lineColor);
-            Debug.DrawLine(Vector3.zero, Vector3.up, lineColor);
+
+            destination = origin + moveVector;
+            Debug.DrawLine(origin, destination, moveVectorColor);
         }
     }
 
@@ -87,10 +99,10 @@ public class SimpleFish : MonoBehaviour, IFish
     {
         moveVector = SteerInto(moveVector);
         moveVector = AvoidObstacles(moveVector);
-        moveVector = moveVector.ClampMagnitude(maxSpeed, minSpeed);
+        this.moveVector = moveVector.ClampMagnitude(maxSpeed, minSpeed);
         
-        transform.forward = moveVector;
-        transform.position += moveVector * Time.deltaTime;
+        transform.forward = this.moveVector;
+        transform.position += this.moveVector * Time.deltaTime;
     }
 
     protected Vector3 SteerInto(Vector3 steerInto)

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IMovable
 {
     #region Public Properties
@@ -5,6 +7,7 @@ public interface IMovable
     float MinSpeed { get; }
     float MaxSpeed { get; }
     float CollisionDetectDistance { get; }
-    
+    Vector3 MoveVector { get; }
+
     #endregion
 }

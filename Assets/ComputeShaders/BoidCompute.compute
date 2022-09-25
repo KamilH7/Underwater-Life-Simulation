@@ -1,16 +1,15 @@
 ﻿#pragma kernel CSMain
-static const int threadGroupSize = 1024;
+static const int threadGroupSize = 128;
 
 struct Boid
 {
-    //boid information
     float3 position;
-    float3 displacementVector;
-
-    //neighbourhood information
+    float3 moveVector;
+    
     float3 avgPosition;
-    float3 avgDisplacementVector;
-    float3 avgAvoidanceDisplacementVector;
+    float3 avgMoveVector;
+    float3 avgNeighbourAvoidanceVector;
+    float3 avgPredatorAvoidanceVector;
 };
 
 RWStructuredBuffer<Boid> boids;
@@ -18,18 +17,21 @@ int totalNumberOfBoids;
 float viewDistance;
 float avoidanceDistance;
 
+int totalNumberOfPredators;
+float3 predatorPositions[10];
+
 [numthreads(threadGroupSize,1,1)]
 void CSMain(uint3 id : SV_DispatchThreadID)
 {
     int currentBoidIndex = id.x;
 
-    boids[id.x].avgPosition = 0;
-    boids[id.x].avgDisplacementVector = 0;
-    boids[id.x].avgAvoidanceDisplacementVector = 0;
+    boids[currentBoidIndex].avgPosition = 0;
+    boids[currentBoidIndex].avgMoveVector = 0;
+    boids[currentBoidIndex].avgNeighbourAvoidanceVector = 0;
 
     int numNeighbours = 0;
     int numNeighboursToAvoid = 0;
-
+    int numOfPredators = 0;
 
     for (int potentialNeighbourIndex = 0; potentialNeighbourIndex < totalNumberOfBoids; potentialNeighbourIndex++)
     {
@@ -39,7 +41,8 @@ void CSMain(uint3 id : SV_DispatchThreadID)
 
             float3 displacementVectorToNeighbour = potentialNeighbour.position - boids[currentBoidIndex].position;
 
-            float distanceToNeighbour = sqrt(displacementVectorToNeighbour.x * displacementVectorToNeighbour.x +
+            float distanceToNeighbour = sqrt(
+                displacementVectorToNeighbour.x * displacementVectorToNeighbour.x +
                 displacementVectorToNeighbour.y * displacementVectorToNeighbour.y +
                 displacementVectorToNeighbour.z * displacementVectorToNeighbour.z);
 
@@ -47,26 +50,48 @@ void CSMain(uint3 id : SV_DispatchThreadID)
             {
                 numNeighbours += 1;
                 boids[currentBoidIndex].avgPosition += potentialNeighbour.position;
-                boids[currentBoidIndex].avgDisplacementVector += potentialNeighbour.displacementVector;
+                boids[currentBoidIndex].avgMoveVector += potentialNeighbour.moveVector;
 
                 if (distanceToNeighbour < avoidanceDistance)
                 {
                     numNeighboursToAvoid += 1;
-                    boids[currentBoidIndex].avgAvoidanceDisplacementVector += -displacementVectorToNeighbour /
-                        distanceToNeighbour;
+                    boids[currentBoidIndex].avgNeighbourAvoidanceVector += - (displacementVectorToNeighbour * (viewDistance / distanceToNeighbour));
                 }
             }
         }
     }
-
+ 
     if (numNeighbours > 0)
     {
-        boids[currentBoidIndex].avgDisplacementVector /= numNeighbours;
+        boids[currentBoidIndex].avgMoveVector /= numNeighbours;
         boids[currentBoidIndex].avgPosition /= numNeighbours;
     }
-
+    
     if (numNeighboursToAvoid > 0)
     {
-        boids[currentBoidIndex].avgAvoidanceDisplacementVector /= numNeighboursToAvoid;
+        boids[currentBoidIndex].avgNeighbourAvoidanceVector /= numNeighboursToAvoid;
+    }
+
+    for (int potentialPredatorIndex = 0; potentialPredatorIndex < totalNumberOfPredators; potentialPredatorIndex++)
+    {
+        float3 potentialPredator = predatorPositions[potentialPredatorIndex];
+        
+        float3 displacementVectorToPredator = boids[currentBoidIndex].position - potentialPredator;
+
+        float distanceToPredator = sqrt(
+            displacementVectorToPredator.x * displacementVectorToPredator.x +
+            displacementVectorToPredator.y * displacementVectorToPredator.y +
+            displacementVectorToPredator.z * displacementVectorToPredator.z);
+
+        if (distanceToPredator < viewDistance)
+        {
+            numOfPredators += 1;
+            boids[currentBoidIndex].avgPredatorAvoidanceVector += displacementVectorToPredator * (viewDistance / distanceToPredator);
+        }
+    }
+
+    if(numOfPredators > 0)
+    {
+       boids[currentBoidIndex].avgPredatorAvoidanceVector /= numOfPredators;
     }
 }

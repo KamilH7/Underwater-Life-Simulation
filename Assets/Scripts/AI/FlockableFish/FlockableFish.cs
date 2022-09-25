@@ -11,9 +11,11 @@ public class FlockableFish : SimpleFish
     [SerializeField,ReadOnly]
     private Vector3 avgPosition;
     [SerializeField,ReadOnly]
-    private Vector3 avgDisplacementVector;
+    private Vector3 avgMoveVector;
     [SerializeField,ReadOnly]
-    private Vector3 avgAvoidanceDisplacementVector;
+    private Vector3 avgNeighbourAvoidanceVector;
+    [SerializeField,ReadOnly]
+    private Vector3 avgPredatorAvoidanceVector;
 
     [Header("Flockable fish debug settings")]
     [SerializeField, ShowIf(nameof(debugMode))]
@@ -22,6 +24,8 @@ public class FlockableFish : SimpleFish
     private Color cohesionBehaviourColour;
     [SerializeField, ShowIf(nameof(debugMode))]
     private Color separationBehaviourColour;
+    [SerializeField, ShowIf(nameof(debugMode))]
+    private Color predatorAvoidanceBehaviourColour;
     [SerializeField, ShowIf(nameof(debugMode))]
     private Color finalBehaviourColour;
     #endregion
@@ -43,11 +47,12 @@ public class FlockableFish : SimpleFish
         this.flock = flock;
     }
 
-    public void UpdateBehaviourValues(Vector3 avgPosition, Vector3 avgDisplacementVector, Vector3 avgAvoidanceDisplacementVector)
+    public void UpdateBehaviourValues(Vector3 avgPosition, Vector3 avgMoveVector, Vector3 avgNeighbourAvoidanceVector, Vector3 avgPredatorAvoidanceVector)
     {
         this.avgPosition = avgPosition;
-        this.avgDisplacementVector = avgDisplacementVector;
-        this.avgAvoidanceDisplacementVector = avgAvoidanceDisplacementVector;
+        this.avgMoveVector = avgMoveVector;
+        this.avgNeighbourAvoidanceVector = avgNeighbourAvoidanceVector;
+        this.avgPredatorAvoidanceVector = avgPredatorAvoidanceVector;
     }
 
     #endregion
@@ -61,13 +66,14 @@ public class FlockableFish : SimpleFish
         moveDirection += AlignmentBehaviour();
         moveDirection += CohesionBehaviour();
         moveDirection += SeparationBehaviour();
+        moveDirection += PredatorAvoidanceBehaviour();
 
         return moveDirection;
     }
 
     private Vector3 AlignmentBehaviour()
     {
-        return avgDisplacementVector * flock.AlignmentBehaviour;
+        return avgMoveVector * flock.AlignmentBehaviour;
     }
 
     private Vector3 CohesionBehaviour()
@@ -79,9 +85,20 @@ public class FlockableFish : SimpleFish
 
     private Vector3 SeparationBehaviour()
     {
-        return avgAvoidanceDisplacementVector * flock.SeparationBehaviour;
+        return avgNeighbourAvoidanceVector * flock.SeparationBehaviour;
+    }
+    
+    private Vector3 PredatorAvoidanceBehaviour()
+    {
+        return avgPredatorAvoidanceVector * flock.FearBehaviour;
     }
 
+    public override void Kill()
+    {
+        flock.FishKilled(this);
+        Destroy(gameObject);
+    }
+    
     protected override void DrawDebug()
     {
         base.DrawDebug();
@@ -93,6 +110,7 @@ public class FlockableFish : SimpleFish
             Debug.DrawLine(currentPosition, currentPosition + AlignmentBehaviour(), alignmentBehaviourColour);
             Debug.DrawLine(currentPosition, currentPosition + CohesionBehaviour(), cohesionBehaviourColour);
             Debug.DrawLine(currentPosition, currentPosition + SeparationBehaviour(), separationBehaviourColour);
+            Debug.DrawLine(currentPosition, currentPosition + PredatorAvoidanceBehaviour(), predatorAvoidanceBehaviourColour);
             Debug.DrawLine(currentPosition, currentPosition + GetBehaviour(), finalBehaviourColour);
         }
     }

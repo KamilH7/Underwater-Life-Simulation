@@ -19,7 +19,7 @@ public class BoidShader : SingletonScriptableObject<BoidShader>
         List<FlockableFish> agents = flock.CurrentFishes;
 
         //Initialize static values inside the shader
-        InitializeShaderValues(flockSize, flock.ViewDistance, flock.SafeDistance);
+        InitializeShaderValues(flockSize, flock.ViewDistance, flock.SafeDistance, GetPredatorData(flock.CurrentPredators));
 
         //Create a buffer and populate it with starting data
         AgentData[] agentData = GetDataFromFlock(agents);
@@ -45,11 +45,13 @@ public class BoidShader : SingletonScriptableObject<BoidShader>
 
     #region Private Methods
 
-    private void InitializeShaderValues(int flockSize, float viewDistance, float safeDistance)
+    private void InitializeShaderValues(int flockSize, float viewDistance, float safeDistance, Vector4[] predators)
     {
         boidComputeShader.SetInt("totalNumberOfBoids", flockSize);
         boidComputeShader.SetFloat("viewDistance", viewDistance);
         boidComputeShader.SetFloat("avoidanceDistance", safeDistance);
+        boidComputeShader.SetInt("totalNumberOfPredators", predators.Length);
+        boidComputeShader.SetVectorArray("predatorPositions", predators);
     }
 
     private AgentData[] GetDataFromFlock(List<FlockableFish> flockableFishes)
@@ -59,7 +61,7 @@ public class BoidShader : SingletonScriptableObject<BoidShader>
         for (int i = 0; i < flockableFishes.Count; i++)
         {
             data[i].position = flockableFishes[i].transform.position;
-            data[i].displacementVector = flockableFishes[i].transform.forward;
+            data[i].moveVector = flockableFishes[i].MoveVector;
         }
 
         return data;
@@ -67,14 +69,17 @@ public class BoidShader : SingletonScriptableObject<BoidShader>
 
     private void LaunchComputeShader()
     {
-        boidComputeShader.Dispatch(0, 1, 1, 1);
+        boidComputeShader.Dispatch(0, 32, 1, 1);
     }
 
     private void PopulateBoidsWithNewData(AgentData[] newAgentData, List<FlockableFish> agents)
     {
         for (int i = 0; i < agents.Count; i++)
         {
-            agents[i].UpdateBehaviourValues(newAgentData[i].avgPosition,newAgentData[i].avgDisplacementVector,newAgentData[i].avgAvoidanceDisplacementVector);
+            agents[i].UpdateBehaviourValues(newAgentData[i].avgPosition,
+                                            newAgentData[i].avgMoveVector, 
+                                            newAgentData[i].avgNeighbourAvoidanceVector, 
+                                            newAgentData[i].avgPredatorAvoidanceVector);
         }
     }
 
@@ -89,6 +94,18 @@ public class BoidShader : SingletonScriptableObject<BoidShader>
         boidBuffer.SetData(data);
 
         return boidBuffer;
+    }
+
+    private Vector4[] GetPredatorData(List<PredatorFish> predators)
+    {
+        Vector4[] predatorData = new Vector4[predators.Count];
+
+        for (int i = 0; i < predators.Count; i++)
+        {
+            predatorData[i] = predators[i].transform.position;
+        }
+
+        return predatorData;
     }
 
     #endregion

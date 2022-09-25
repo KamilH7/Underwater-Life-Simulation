@@ -16,6 +16,8 @@ public class Flock : MonoBehaviour
     private int spawnAmount;
     [field: SerializeField]
     public List<FlockableFish> CurrentFishes { get; private set; } = new();
+    [field: SerializeField]
+    public List<PredatorFish> CurrentPredators { get; private set; } = new();
 
     #endregion
 
@@ -27,6 +29,8 @@ public class Flock : MonoBehaviour
     public float CohesionBehaviour { get; private set; }
     [field: Range(0, 10), SerializeField]
     public float SeparationBehaviour { get; private set; }
+    [field: Range(0, 100), SerializeField]
+    public float FearBehaviour { get; private set; }
     [field: SerializeField]
     public float ViewDistance { get; private set; }
     [field: SerializeField]
@@ -44,6 +48,7 @@ public class Flock : MonoBehaviour
         }
 
         InitializeFlock();
+        InitializePredators();
     }
 
     private void Update()
@@ -53,13 +58,36 @@ public class Flock : MonoBehaviour
 
     #endregion
 
+    public void FishKilled(FlockableFish flockableFish)
+    {
+        CurrentFishes.Remove(flockableFish);
+        
+        InformPredatorsOfFishKilled(flockableFish);
+    }
+    
     #region Private Methods
+
+    private void InformPredatorsOfFishKilled(FlockableFish flockableFish)
+    {
+        foreach (PredatorFish predator in CurrentPredators)
+        {
+            predator.RemoveFishFromTargets(flockableFish);
+        }
+    }
 
     private void InitializeFlock()
     {
         foreach (var flockableFish in CurrentFishes)
         {
             flockableFish.Initialize(this);
+        }
+    }
+
+    private void InitializePredators()
+    {
+        foreach (PredatorFish predator in CurrentPredators)
+        {
+            predator.PopulateTargetsFromFlock(this);
         }
     }
     
