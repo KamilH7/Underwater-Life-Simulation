@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MinSpeed>k__BackingField: 0.1
-  <MaxSpeed>k__BackingField: 10
+  <MaxSpeed>k__BackingField: 5
   <MoveVector>k__BackingField: {x: 0, y: 0, z: 0}
   <CollisionDetectDistance>k__BackingField: 5
   <SteerForce>k__BackingField: 0.107

@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77c63094-bc65-4fdb-ab0f-35f49b4efebf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/FlockableFish.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/FlockableFish.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Predator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Predator.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/PredatorFish/PredatorFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/PredatorFish/PredatorFish.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,29 +1,32 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+
 public class PredatorFish : EnergyBasedMovingFish
 {
-    [SerializeField]
-    private List<MovingFish> targetFishes = new List<MovingFish>();
-    [SerializeField]
-    private float viewRange;
-    [SerializeField]
-    private float killRange;
+    [field: SerializeField]
+    protected float ViewRange { get; set; }
+    [field: SerializeField]
+    protected float KillRange { get; set; }
 
-    [SerializeField, ReadOnly]
-    private MovingFish currentTarget;
-    [SerializeField, ReadOnly]
-    private float currentDistance;
-    
-    [SerializeField, ShowIf(nameof(DebugMode))]
-    private Color targetVectorColor;
-    
+    [field: SerializeField, ReadOnly]
+    protected MovingFish CurrentTarget { get; set; }
+    [field: SerializeField, ReadOnly]
+    protected float CurrentDistance { get; set; }
+    [field: SerializeField, ReadOnly]
+    protected List<MovingFish> TargetCollection { get; set; }
+
+    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    protected Color TargetVectorColor { get; set; }
+
+    #region Unity Callbacks
+
     protected void Update()
     {
         DrawDebug();
         SetTarget();
-        
-        if (currentTarget != null)
+
+        if (CurrentTarget != null)
         {
             TargetBehaviour();
         }
@@ -33,13 +36,52 @@ public class PredatorFish : EnergyBasedMovingFish
         }
     }
 
+    #endregion
+
+    #region Public Methods
+
+    public void PopulateTargetsFromFlock(Flock flock)
+    {
+        foreach (MovingFish fish in flock.CurrentFishes)
+        {
+            TargetCollection.Add(fish);
+        }
+    }
+
+    public void RemoveFishFromTargets(MovingFish fish)
+    {
+        TargetCollection.Remove(fish);
+    }
+
+    #endregion
+
+    #region Protected Methods
+
+    protected override void DrawDebug()
+    {
+        base.DrawDebug();
+
+        if (DebugMode)
+        {
+            if (CurrentTarget)
+            {
+                Vector3 currentPosition = transform.position;
+                Debug.DrawLine(currentPosition, CurrentTarget.transform.position, TargetVectorColor);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Private Methods
+
     private void TargetBehaviour()
     {
-        Vector3 moveVector = currentTarget.transform.position - transform.position;
-        
+        Vector3 moveVector = CurrentTarget.transform.position - transform.position;
+
         Move(moveVector.normalized * MaxSpeed);
 
-        if (moveVector.magnitude < killRange)
+        if (moveVector.magnitude < KillRange)
         {
             KillCurrentTarget();
         }
@@ -50,64 +92,39 @@ public class PredatorFish : EnergyBasedMovingFish
         Vector3 direction = Vector3.forward;
         Move(direction * MinSpeed);
     }
-    
+
     private void KillCurrentTarget()
     {
-        currentTarget.Kill();
-        currentTarget = null;
+        CurrentTarget.Kill();
+        CurrentTarget = null;
     }
 
     private void SetTarget()
     {
-        if (currentTarget != null)
+        if (CurrentTarget != null)
         {
-            if ((currentTarget.transform.position - transform.position).magnitude > viewRange)
+            if ((CurrentTarget.transform.position - transform.position).magnitude > ViewRange)
             {
-                currentTarget = null;
+                CurrentTarget = null;
             }
         }
 
-        foreach (MovingFish fish in targetFishes)
+        foreach (MovingFish fish in TargetCollection)
         {
-            if (currentTarget == null)
+            if (CurrentTarget == null)
             {
-                currentDistance = viewRange;
+                CurrentDistance = ViewRange;
             }
 
             float newDistance = (transform.position - fish.transform.position).magnitude;
 
-            if (newDistance < currentDistance)
+            if (newDistance < CurrentDistance)
             {
-                currentTarget = fish;
-                currentDistance = (transform.position - currentTarget.transform.position).magnitude;
+                CurrentTarget = fish;
+                CurrentDistance = (transform.position - CurrentTarget.transform.position).magnitude;
             }
         }
     }
 
-    public void PopulateTargetsFromFlock(Flock flock)
-    {
-        foreach (MovingFish fish in flock.CurrentFishes)
-        {
-            targetFishes.Add(fish);
-        }
-    }
-    
-    public void RemoveFishFromTargets(MovingFish fish)
-    {
-        targetFishes.Remove(fish);
-    }
-
-    protected override void DrawDebug()
-    {
-        base.DrawDebug();
-
-        if (DebugMode)
-        {
-            if (currentTarget)
-            {
-                Vector3 currentPosition = transform.position;
-                Debug.DrawLine(currentPosition, currentTarget.transform.position, targetVectorColor);
-            }
-        }
-    }
+    #endregion
 }

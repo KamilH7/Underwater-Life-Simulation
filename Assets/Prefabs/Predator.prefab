@@ -45,21 +45,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f28d82821eddc4498a92e570cad9ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  minSpeed: 3
-  moveVector: {x: 0, y: 0, z: 0}
-  maxSpeed: 5
-  collisionDetectDistance: 0
-  steerForce: 0.02
-  debugMode: 1
-  moveVectorColor: {r: 0.8692827, g: 1, b: 0, a: 0}
-  collisionDetectedColor: {r: 1, g: 0, b: 0, a: 0}
-  collisionNotDetectedColor: {r: 0.045387268, g: 1, b: 0, a: 0}
-  targetFishes: []
-  viewRange: 5
-  currentTarget: {fileID: 0}
-  currentDistance: 0
-  targetVectorColor: {r: 1, g: 0, b: 0.804821, a: 0}
+  <MinSpeed>k__BackingField: 3
+  <MaxSpeed>k__BackingField: 5
+  <MoveVector>k__BackingField: {x: 0, y: 0, z: 0}
+  <CollisionDetectDistance>k__BackingField: 2
+  <SteerForce>k__BackingField: 0.02
+  <DebugMode>k__BackingField: 0
+  <MoveVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <CollisionDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <CollisionNotDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <MaxEnergy>k__BackingField: 200
+  <RegenerationSpeed>k__BackingField: 0.3
+  <MaxEnergyDecaySpeed>k__BackingField: 0.1
+  <DecaySpeedThreshold>k__BackingField: 0.8
+  <MaxSpeedDecay>k__BackingField: 0.8
+  <CurrentEnergy>k__BackingField: 0
+  <RealMaxSpeed>k__BackingField: 0
+  <ViewRange>k__BackingField: 5
+  <KillRange>k__BackingField: 0.1
+  <CurrentTarget>k__BackingField: {fileID: 0}
+  <CurrentDistance>k__BackingField: 0
+  <TargetCollection>k__BackingField: []
+  <TargetVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &4428553604175462040
 PrefabInstance:
   m_ObjectHideFlags: 0
