@@ -1,65 +1,33 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class SimpleFish : MonoBehaviour, IFish
+public class MovingFish : MonoBehaviour, IFish
 {
-    #region Serialized Fields
-
-    [SerializeField]
-    protected Transform target;
-    [SerializeField]
-    protected float minSpeed;
-    [SerializeField, ReadOnly]
-    protected Vector3 moveVector;
-    [SerializeField]
-    protected float maxSpeed;
-    [SerializeField]
-    protected float collisionDetectDistance;
-    [SerializeField, Range(0, 1)]
-    protected float steerForce;
-    [SerializeField]
-    protected bool debugMode;
-    [SerializeField, ShowIf(nameof(debugMode))]
-    private Color moveVectorColor;
-    [SerializeField, ShowIf(nameof(debugMode))]
-    private Color collisionDetectedColor;
-    [SerializeField, ShowIf(nameof(debugMode))]
-    private Color collisionNotDetectedColor;
-
-    #endregion
-
     #region Public Properties
 
-    public float MinSpeed { get => minSpeed; }
-    public float MaxSpeed { get => maxSpeed; }
-    public float CollisionDetectDistance { get => collisionDetectDistance; }
-    public Vector3 MoveVector { get => moveVector; }
+    [field: Header("Movement Settings"), SerializeField]
+    public float MinSpeed { get; protected set; }
+    [field: SerializeField]
+    public float MaxSpeed { get; protected set; }
+    [field: SerializeField, ReadOnly]
+    public Vector3 MoveVector { get; protected set; }
+
+    [field: Header("Collision Detection Settings"), SerializeField]
+    public float CollisionDetectDistance { get; protected set; }
+
+    [field: SerializeField, Range(0, 1)]
+    public float SteerForce { get; protected set; }
 
     #endregion
 
-    #region Unity Callbacks
-
-    protected virtual void Update()
-    {
-        DrawDebug();
-
-        Vector3 moveDirection;
-
-        if (target)
-        {
-            moveDirection = (transform.position - target.position).normalized;
-        }
-        else
-        {
-            moveDirection = transform.forward;
-        }
-
-        Vector3 moveVector = moveDirection * MinSpeed;
-
-        Move(moveVector);
-    }
-
-    #endregion
+    [field: Header("Debug"), SerializeField]
+    protected bool DebugMode { get; set; }
+    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    private Color MoveVectorColor { get; set; }
+    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    private Color CollisionDetectedColor { get; set; }
+    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    private Color CollisionNotDetectedColor { get; set; }
 
     #region Public Methods
 
@@ -81,34 +49,34 @@ public class SimpleFish : MonoBehaviour, IFish
 
     protected virtual void DrawDebug()
     {
-        if (debugMode)
+        if (DebugMode)
         {
             bool headingForObstacle = GetCollisionInfo(transform.position, transform.forward).collider;
-            Color lineColor = headingForObstacle ? collisionDetectedColor : collisionNotDetectedColor;
+            Color lineColor = headingForObstacle ? CollisionDetectedColor : CollisionNotDetectedColor;
 
             Vector3 origin = transform.position;
-            Vector3 destination = origin + transform.forward * collisionDetectDistance;
+            Vector3 destination = origin + transform.forward * CollisionDetectDistance;
             Debug.DrawLine(origin, destination, lineColor);
 
-            destination = origin + moveVector;
-            Debug.DrawLine(origin, destination, moveVectorColor);
+            destination = origin + MoveVector;
+            Debug.DrawLine(origin, destination, MoveVectorColor);
         }
     }
 
-    protected void Move(Vector3 moveVector)
+    protected virtual void Move(Vector3 moveVector)
     {
         moveVector = SteerInto(moveVector);
         moveVector = AvoidObstacles(moveVector);
-        this.moveVector = moveVector.ClampMagnitude(maxSpeed, minSpeed);
-        
-        transform.forward = this.moveVector;
-        transform.position += this.moveVector * Time.deltaTime;
+        MoveVector = moveVector.ClampMagnitude(MaxSpeed, MinSpeed);
+
+        transform.forward = MoveVector;
+        transform.position += MoveVector * Time.deltaTime;
     }
 
     protected Vector3 SteerInto(Vector3 steerInto)
     {
         Vector3 directionChange = steerInto.normalized - transform.forward;
-        Vector3 steeredDirectionChange = directionChange * steerForce;
+        Vector3 steeredDirectionChange = directionChange * SteerForce;
         Vector3 goalDirection = transform.forward + steeredDirectionChange;
 
         return steerInto.magnitude * goalDirection;

@@ -1,38 +1,33 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class FlockableFish : SimpleFish
+public class FlockableFish : EnergyBasedMovingFish
 {
-    #region Private Fields
-    
-    [Header("Flockable fish values")]
-    [SerializeField,ReadOnly]
-    private Flock flock;
-    [SerializeField,ReadOnly]
-    private Vector3 avgPosition;
-    [SerializeField,ReadOnly]
-    private Vector3 avgMoveVector;
-    [SerializeField,ReadOnly]
-    private Vector3 avgNeighbourAvoidanceVector;
-    [SerializeField,ReadOnly]
-    private Vector3 avgPredatorAvoidanceVector;
+    [field: Header("Flockable fish values"), SerializeField, ReadOnly]
+    protected Flock CurrentFlock { get; set; }
+    [field: SerializeField, ReadOnly]
+    protected Vector3 AvgPosition { get; set; }
+    [field: SerializeField, ReadOnly]
+    protected Vector3 AvgMoveVector { get; set; }
+    [field: SerializeField, ReadOnly]
+    protected Vector3 AvgNeighbourAvoidanceVector { get; set; }
+    [field: SerializeField, ReadOnly]
+    protected Vector3 AvgPredatorAvoidanceVector { get; set; }
 
-    [Header("Flockable fish debug settings")]
-    [SerializeField, ShowIf(nameof(debugMode))]
-    private Color alignmentBehaviourColour;
-    [SerializeField, ShowIf(nameof(debugMode))]
-    private Color cohesionBehaviourColour;
-    [SerializeField, ShowIf(nameof(debugMode))]
-    private Color separationBehaviourColour;
-    [SerializeField, ShowIf(nameof(debugMode))]
-    private Color predatorAvoidanceBehaviourColour;
-    [SerializeField, ShowIf(nameof(debugMode))]
-    private Color finalBehaviourColour;
-    #endregion
+    [field: Header("Flockable fish debug settings"), SerializeField, ShowIf(nameof(DebugMode))]
+    private Color AlignmentBehaviourColour { get; set; }
+    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    private Color CohesionBehaviourColour { get; set; }
+    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    private Color SeparationBehaviourColour { get; set; }
+    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    private Color PredatorAvoidanceBehaviourColour { get; set; }
+    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    private Color FinalBehaviourColour { get; set; }
 
     #region Unity Callbacks
 
-    protected override void Update()
+    protected void Update()
     {
         DrawDebug();
         Move(GetBehaviour());
@@ -44,15 +39,41 @@ public class FlockableFish : SimpleFish
 
     public void Initialize(Flock flock)
     {
-        this.flock = flock;
+        CurrentFlock = flock;
     }
 
     public void UpdateBehaviourValues(Vector3 avgPosition, Vector3 avgMoveVector, Vector3 avgNeighbourAvoidanceVector, Vector3 avgPredatorAvoidanceVector)
     {
-        this.avgPosition = avgPosition;
-        this.avgMoveVector = avgMoveVector;
-        this.avgNeighbourAvoidanceVector = avgNeighbourAvoidanceVector;
-        this.avgPredatorAvoidanceVector = avgPredatorAvoidanceVector;
+        AvgPosition = avgPosition;
+        AvgMoveVector = avgMoveVector;
+        AvgNeighbourAvoidanceVector = avgNeighbourAvoidanceVector;
+        AvgPredatorAvoidanceVector = avgPredatorAvoidanceVector;
+    }
+
+    public override void Kill()
+    {
+        CurrentFlock.FishKilled(this);
+        Destroy(gameObject);
+    }
+
+    #endregion
+
+    #region Protected Methods
+
+    protected override void DrawDebug()
+    {
+        base.DrawDebug();
+
+        if (DebugMode)
+        {
+            Vector3 currentPosition = transform.position;
+
+            Debug.DrawLine(currentPosition, currentPosition + AlignmentBehaviour(), AlignmentBehaviourColour);
+            Debug.DrawLine(currentPosition, currentPosition + CohesionBehaviour(), CohesionBehaviourColour);
+            Debug.DrawLine(currentPosition, currentPosition + SeparationBehaviour(), SeparationBehaviourColour);
+            Debug.DrawLine(currentPosition, currentPosition + PredatorAvoidanceBehaviour(), PredatorAvoidanceBehaviourColour);
+            Debug.DrawLine(currentPosition, currentPosition + GetBehaviour(), FinalBehaviourColour);
+        }
     }
 
     #endregion
@@ -73,46 +94,24 @@ public class FlockableFish : SimpleFish
 
     private Vector3 AlignmentBehaviour()
     {
-        return avgMoveVector * flock.AlignmentBehaviour;
+        return AvgMoveVector * CurrentFlock.AlignmentBehaviour;
     }
 
     private Vector3 CohesionBehaviour()
     {
-        var direction = (avgPosition - transform.position);
+        var direction = AvgPosition - transform.position;
 
-        return direction * flock.CohesionBehaviour;
+        return direction * CurrentFlock.CohesionBehaviour;
     }
 
     private Vector3 SeparationBehaviour()
     {
-        return avgNeighbourAvoidanceVector * flock.SeparationBehaviour;
+        return AvgNeighbourAvoidanceVector * CurrentFlock.SeparationBehaviour;
     }
-    
+
     private Vector3 PredatorAvoidanceBehaviour()
     {
-        return avgPredatorAvoidanceVector * flock.FearBehaviour;
-    }
-
-    public override void Kill()
-    {
-        flock.FishKilled(this);
-        Destroy(gameObject);
-    }
-    
-    protected override void DrawDebug()
-    {
-        base.DrawDebug();
-
-        if (debugMode)
-        {
-            Vector3 currentPosition = transform.position;
-            
-            Debug.DrawLine(currentPosition, currentPosition + AlignmentBehaviour(), alignmentBehaviourColour);
-            Debug.DrawLine(currentPosition, currentPosition + CohesionBehaviour(), cohesionBehaviourColour);
-            Debug.DrawLine(currentPosition, currentPosition + SeparationBehaviour(), separationBehaviourColour);
-            Debug.DrawLine(currentPosition, currentPosition + PredatorAvoidanceBehaviour(), predatorAvoidanceBehaviourColour);
-            Debug.DrawLine(currentPosition, currentPosition + GetBehaviour(), finalBehaviourColour);
-        }
+        return AvgPredatorAvoidanceVector * CurrentFlock.FearBehaviour;
     }
 
     #endregion

@@ -1,24 +1,24 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-public class PredatorFish : SimpleFish
+public class PredatorFish : EnergyBasedMovingFish
 {
     [SerializeField]
-    private List<SimpleFish> targetFishes = new List<SimpleFish>();
+    private List<MovingFish> targetFishes = new List<MovingFish>();
     [SerializeField]
     private float viewRange;
     [SerializeField]
     private float killRange;
 
     [SerializeField, ReadOnly]
-    private SimpleFish currentTarget;
+    private MovingFish currentTarget;
     [SerializeField, ReadOnly]
     private float currentDistance;
     
-    [SerializeField, ShowIf(nameof(debugMode))]
+    [SerializeField, ShowIf(nameof(DebugMode))]
     private Color targetVectorColor;
     
-    protected override void Update()
+    protected void Update()
     {
         DrawDebug();
         SetTarget();
@@ -37,7 +37,7 @@ public class PredatorFish : SimpleFish
     {
         Vector3 moveVector = currentTarget.transform.position - transform.position;
         
-        Move(moveVector.normalized * maxSpeed);
+        Move(moveVector.normalized * MaxSpeed);
 
         if (moveVector.magnitude < killRange)
         {
@@ -48,7 +48,7 @@ public class PredatorFish : SimpleFish
     private void DocileBehaviour()
     {
         Vector3 direction = Vector3.forward;
-        Move(direction * minSpeed);
+        Move(direction * MinSpeed);
     }
     
     private void KillCurrentTarget()
@@ -67,7 +67,7 @@ public class PredatorFish : SimpleFish
             }
         }
 
-        foreach (SimpleFish fish in targetFishes)
+        foreach (MovingFish fish in targetFishes)
         {
             if (currentTarget == null)
             {
@@ -86,13 +86,13 @@ public class PredatorFish : SimpleFish
 
     public void PopulateTargetsFromFlock(Flock flock)
     {
-        foreach (SimpleFish fish in flock.CurrentFishes)
+        foreach (MovingFish fish in flock.CurrentFishes)
         {
             targetFishes.Add(fish);
         }
     }
     
-    public void RemoveFishFromTargets(SimpleFish fish)
+    public void RemoveFishFromTargets(MovingFish fish)
     {
         targetFishes.Remove(fish);
     }
@@ -101,7 +101,7 @@ public class PredatorFish : SimpleFish
     {
         base.DrawDebug();
 
-        if (debugMode)
+        if (DebugMode)
         {
             if (currentTarget)
             {

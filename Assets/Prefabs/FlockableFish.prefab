@@ -47,14 +47,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minSpeed: 0.1
-  moveVector: {x: 0, y: 0, z: 0}
   maxSpeed: 10
-  collisionDetectDistance: 5
   steerForce: 0.107
+  moveVector: {x: 0, y: 0, z: 0}
+  collisionDetectDistance: 5
   debugMode: 0
   moveVectorColor: {r: 0, g: 0, b: 0, a: 0}
   collisionDetectedColor: {r: 0.6415094, g: 0.017251343, b: 0, a: 1}
   collisionNotDetectedColor: {r: 0, g: 1, b: 0.054832935, a: 1}
+  maxEnergy: 100
+  regenerationSpeed: 2
+  maxEnergyDecaySpeed: 1
+  decaySpeedThreshold: 0.8
+  maxSpeedDecay: 0.8
+  <CurrentEnergy>k__BackingField: 0
   flock: {fileID: 0}
   avgPosition: {x: 0, y: 0, z: 0}
   avgMoveVector: {x: 0, y: 0, z: 0}

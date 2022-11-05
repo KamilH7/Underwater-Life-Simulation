@@ -1,4 +1,4 @@
-public interface IFish : IMovable, ISpawnable
+public interface IFish :  IMovable, ISpawnable
 {
     
 }
