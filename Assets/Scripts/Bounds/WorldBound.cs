@@ -9,7 +9,7 @@ namespace Shaders
         [Header("Settings")] [SerializeField] private float minResistanceDistance = 1;
         [SerializeField] private float maxResistanceDistance = 0;
         [SerializeField] private bool showBounds = false;
-        [SerializeField] private Renderer renderer;
+        [SerializeField] private Renderer currentRenderer;
 
         private Vector3 center;
         private float radius;
@@ -46,7 +46,7 @@ namespace Shaders
 
         private float GetSphereRadius()
         {
-            return renderer.bounds.extents.magnitude / 2;
+            return currentRenderer.bounds.extents.magnitude / 2;
         }
 
         private void OnDrawGizmos()
