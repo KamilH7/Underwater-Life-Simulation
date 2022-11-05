@@ -21,6 +21,9 @@ public class EnergyBasedMovingFish : MovingFish
 
     [field: SerializeField, ReadOnly]
     public float RealMaxSpeed { get; set; }
+    
+    [field: SerializeField, ReadOnly]
+    public float RealMaxSteerSpeed { get; set; }
 
     #endregion
 
@@ -30,15 +33,16 @@ public class EnergyBasedMovingFish : MovingFish
     {
         CurrentEnergy = MaxEnergy;
         RealMaxSpeed = MaxSpeed;
+        RealMaxSteerSpeed = MaxSteerSpeed;
     }
 
     #endregion
 
     #region Protected Methods
 
-    protected override void Move(Vector3 moveVector)
+    protected override void Move(Vector3 inputVector)
     {
-        base.Move(moveVector);
+        base.Move(inputVector);
 
         HandleEnergyManagement();
     }
@@ -65,7 +69,7 @@ public class EnergyBasedMovingFish : MovingFish
 
     private void DecayEnergy()
     {
-        float speedToMaxSpeedRatio = MoveVector.magnitude / MaxSpeed;
+        float speedToMaxSpeedRatio = CurrentSpeed / MaxSpeed;
         float speedOverThreshold = Mathf.Abs(speedToMaxSpeedRatio - DecaySpeedThreshold);
 
         float decayRange = Mathf.Abs(DecaySpeedThreshold - 1);
@@ -81,15 +85,17 @@ public class EnergyBasedMovingFish : MovingFish
 
     private bool IsSpeedOverThreshold()
     {
-        return MoveVector.magnitude / MaxSpeed > DecaySpeedThreshold;
+        return CurrentSpeed / MaxSpeed > DecaySpeedThreshold;
     }
 
     private void UpdateMaxSpeed()
     {
         float energyToMaxEnergyRatio = CurrentEnergy / MaxEnergy;
-        float missingEnergyToMaxEnergyRatio = energyToMaxEnergyRatio - 1;
-
-        MaxSpeed = RealMaxSpeed - RealMaxSpeed * missingEnergyToMaxEnergyRatio * MaxSpeedDecay;
+        float missingEnergyToMaxEnergyRatio = Mathf.Abs(energyToMaxEnergyRatio - 1);
+        float decreaseRatio = missingEnergyToMaxEnergyRatio * MaxSpeedDecay;
+        
+        MaxSteerSpeed = RealMaxSteerSpeed - RealMaxSteerSpeed * decreaseRatio;
+        MaxSpeed = RealMaxSpeed - RealMaxSpeed * decreaseRatio;
     }
 
     #endregion

@@ -10,13 +10,14 @@ public abstract class MovingFish : MonoBehaviour, IFish
     [field: SerializeField]
     public float MaxSpeed { get; protected set; }
     [field: SerializeField, ReadOnly]
+    public float CurrentSpeed { get; private set; }
     public Vector3 MoveVector { get; protected set; }
 
     [field: Header("Collision Detection Settings"), SerializeField]
     public float CollisionDetectDistance { get; protected set; }
 
     [field: SerializeField, Range(0, 1)]
-    public float SteerForce { get; protected set; }
+    public float MaxSteerSpeed { get; protected set; }
 
     #endregion
 
@@ -63,20 +64,22 @@ public abstract class MovingFish : MonoBehaviour, IFish
         }
     }
 
-    protected virtual void Move(Vector3 moveVector)
+    protected virtual void Move(Vector3 inputVector)
     {
-        moveVector = SteerInto(moveVector);
-        moveVector = AvoidObstacles(moveVector);
-        MoveVector = moveVector.ClampMagnitude(MaxSpeed, MinSpeed);
+        MoveVector = SteerInto(inputVector);
+        MoveVector = AvoidObstacles(MoveVector);
+        MoveVector = MoveVector.ClampMagnitude(MaxSpeed, MinSpeed);
 
         transform.forward = MoveVector;
         transform.position += MoveVector * Time.deltaTime;
+        
+        CurrentSpeed = MoveVector.magnitude;
     }
 
     protected Vector3 SteerInto(Vector3 steerInto)
     {
         Vector3 directionChange = steerInto.normalized - transform.forward;
-        Vector3 steeredDirectionChange = directionChange * SteerForce;
+        Vector3 steeredDirectionChange = directionChange * MaxSteerSpeed;
         Vector3 goalDirection = transform.forward + steeredDirectionChange;
 
         return steerInto.magnitude * goalDirection;

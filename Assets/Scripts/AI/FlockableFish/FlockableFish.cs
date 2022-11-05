@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class FlockableFish : EnergyBasedMovingFish
 {
-    [field: Header("Flockable fish values"), SerializeField, ReadOnly]
+    [field: Header("Flockable fish values"), SerializeField, Range(0f,1f)]
+    protected float EnergySpentOnFlocking { get; set; }
+    [field: SerializeField, ReadOnly]
     protected Flock CurrentFlock { get; set; }
     [field: SerializeField, ReadOnly]
     protected Vector3 AvgPosition { get; set; }
@@ -82,14 +84,17 @@ public class FlockableFish : EnergyBasedMovingFish
 
     private Vector3 GetBehaviour()
     {
-        Vector3 moveDirection = transform.forward;
+        Vector3 moveVector = transform.forward;
 
-        moveDirection += AlignmentBehaviour();
-        moveDirection += CohesionBehaviour();
-        moveDirection += SeparationBehaviour();
-        moveDirection += PredatorAvoidanceBehaviour();
+        moveVector += AlignmentBehaviour();
+        moveVector += CohesionBehaviour();
+        moveVector += SeparationBehaviour();
+        
+        moveVector = moveVector.ClampMagnitude(MaxSpeed * EnergySpentOnFlocking, MinSpeed);
+        
+        moveVector += PredatorAvoidanceBehaviour();
 
-        return moveDirection;
+        return moveVector;
     }
 
     private Vector3 AlignmentBehaviour()

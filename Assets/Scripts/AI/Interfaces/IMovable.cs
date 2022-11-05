@@ -8,7 +8,7 @@ public interface IMovable
     float MaxSpeed { get; }
     float CollisionDetectDistance { get; }
     Vector3 MoveVector { get; }
-    float SteerForce { get; }
+    float MaxSteerSpeed { get; }
 
     #endregion
 }
