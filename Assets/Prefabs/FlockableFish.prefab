@@ -45,32 +45,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e49cdf5f735ece42ae4679c7d88ba8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  minSpeed: 0.1
-  maxSpeed: 10
-  steerForce: 0.107
-  moveVector: {x: 0, y: 0, z: 0}
-  collisionDetectDistance: 5
-  debugMode: 0
-  moveVectorColor: {r: 0, g: 0, b: 0, a: 0}
-  collisionDetectedColor: {r: 0.6415094, g: 0.017251343, b: 0, a: 1}
-  collisionNotDetectedColor: {r: 0, g: 1, b: 0.054832935, a: 1}
-  maxEnergy: 100
-  regenerationSpeed: 2
-  maxEnergyDecaySpeed: 1
-  decaySpeedThreshold: 0.8
-  maxSpeedDecay: 0.8
+  <MinSpeed>k__BackingField: 0.1
+  <MaxSpeed>k__BackingField: 10
+  <MoveVector>k__BackingField: {x: 0, y: 0, z: 0}
+  <CollisionDetectDistance>k__BackingField: 5
+  <SteerForce>k__BackingField: 0.107
+  <DebugMode>k__BackingField: 0
+  <MoveVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <CollisionDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <CollisionNotDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <MaxEnergy>k__BackingField: 100
+  <RegenerationSpeed>k__BackingField: 2
+  <MaxEnergyDecaySpeed>k__BackingField: 1
+  <DecaySpeedThreshold>k__BackingField: 0.8
+  <MaxSpeedDecay>k__BackingField: 0.8
   <CurrentEnergy>k__BackingField: 0
-  flock: {fileID: 0}
-  avgPosition: {x: 0, y: 0, z: 0}
-  avgMoveVector: {x: 0, y: 0, z: 0}
-  avgNeighbourAvoidanceVector: {x: 0, y: 0, z: 0}
-  avgPredatorAvoidanceVector: {x: 0, y: 0, z: 0}
-  alignmentBehaviourColour: {r: 1, g: 0.8399383, b: 0, a: 1}
-  cohesionBehaviourColour: {r: 1, g: 0, b: 0.4858966, a: 1}
-  separationBehaviourColour: {r: 0, g: 0.21884155, b: 1, a: 1}
-  predatorAvoidanceBehaviourColour: {r: 0, g: 0, b: 0, a: 1}
-  finalBehaviourColour: {r: 1, g: 1, b: 1, a: 1}
+  <RealMaxSpeed>k__BackingField: 0
+  <CurrentFlock>k__BackingField: {fileID: 0}
+  <AvgPosition>k__BackingField: {x: 0, y: 0, z: 0}
+  <AvgMoveVector>k__BackingField: {x: 0, y: 0, z: 0}
+  <AvgNeighbourAvoidanceVector>k__BackingField: {x: 0, y: 0, z: 0}
+  <AvgPredatorAvoidanceVector>k__BackingField: {x: 0, y: 0, z: 0}
+  <AlignmentBehaviourColour>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <CohesionBehaviourColour>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <SeparationBehaviourColour>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <PredatorAvoidanceBehaviourColour>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <FinalBehaviourColour>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1279554406846016213
 PrefabInstance:
   m_ObjectHideFlags: 0

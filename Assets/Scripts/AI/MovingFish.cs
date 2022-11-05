@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class MovingFish : MonoBehaviour, IFish
+public abstract class MovingFish : MonoBehaviour, IFish
 {
     #region Public Properties
 
