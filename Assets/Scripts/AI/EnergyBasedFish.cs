@@ -1,12 +1,18 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class EnergyBasedMovingFish : MovingFish
+public class EnergyBasedFish : MovingFish
 {
     #region Public Properties
 
     [field: Header("Energy Management Settings"), SerializeField]
     public float MaxEnergy { get; protected set; }
+    [field: SerializeField, Range(0f, 1f)]
+    public float MaxStartEnergy { get; protected set; }
+    [field: SerializeField, Range(0f, 1f)]
+    public float MinStartEnergy { get; protected set; }
     [field: SerializeField]
     public float RegenerationSpeed { get; protected set; }
     [field: SerializeField]
@@ -29,9 +35,9 @@ public class EnergyBasedMovingFish : MovingFish
 
     #region Unity Callbacks
 
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
-        CurrentEnergy = MaxEnergy;
+        CurrentEnergy = MaxEnergy * Random.Range(MinStartEnergy, MaxStartEnergy);
         RealMaxSpeed = MaxSpeed;
         RealMaxSteerSpeed = MaxSteerSpeed;
     }
@@ -51,7 +57,7 @@ public class EnergyBasedMovingFish : MovingFish
 
     #region Private Methods
 
-    private void HandleEnergyManagement()
+    protected void HandleEnergyManagement()
     {
         if (IsSpeedOverThreshold())
         {
@@ -67,6 +73,8 @@ public class EnergyBasedMovingFish : MovingFish
         UpdateMaxSpeed();
     }
 
+    protected float EnergyRatio => CurrentEnergy / MaxEnergy;
+    
     private void DecayEnergy()
     {
         float speedToMaxSpeedRatio = CurrentSpeed / MaxSpeed;
@@ -90,8 +98,7 @@ public class EnergyBasedMovingFish : MovingFish
 
     private void UpdateMaxSpeed()
     {
-        float energyToMaxEnergyRatio = CurrentEnergy / MaxEnergy;
-        float missingEnergyToMaxEnergyRatio = Mathf.Abs(energyToMaxEnergyRatio - 1);
+        float missingEnergyToMaxEnergyRatio = Mathf.Abs(EnergyRatio - 1);
         float decreaseRatio = missingEnergyToMaxEnergyRatio * MaxSpeedDecay;
         
         MaxSteerSpeed = RealMaxSteerSpeed - RealMaxSteerSpeed * decreaseRatio;

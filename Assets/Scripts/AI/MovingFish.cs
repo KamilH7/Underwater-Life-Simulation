@@ -30,13 +30,17 @@ public abstract class MovingFish : MonoBehaviour, IFish
     [field: SerializeField, ShowIf(nameof(DebugMode))]
     private Color CollisionNotDetectedColor { get; set; }
 
+    protected GameObject FishPrefab { get; set; }
+
     #region Public Methods
 
-    public void Spawn(Vector3 position, Vector3 direction, Transform parent)
+    public virtual void Spawn(Vector3 position, Vector3 direction, Quaternion rotation, Transform parent, GameObject prefab)
     {
         transform.position = position;
+        transform.rotation = rotation;
         transform.forward = direction;
         transform.parent = parent;
+        FishPrefab = prefab;
     }
 
     public virtual void Kill()

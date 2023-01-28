@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PredatorFish : EnergyBasedMovingFish
+public class PredatorFish : EnergyBasedFish
 {
     [field: SerializeField]
     protected float ViewRange { get; set; }
@@ -52,6 +52,12 @@ public class PredatorFish : EnergyBasedMovingFish
     {
         TargetCollection.Remove(fish);
     }
+    
+    public void AddFishToTargets(MovingFish fish)
+    {
+        TargetCollection.Add(fish);
+    }
+
 
     #endregion
 

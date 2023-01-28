@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class FlockableFish : EnergyBasedMovingFish
+public class FlockableFish : ReproducingFish
 {
     [field: Header("Flockable fish values"), SerializeField, Range(0f,1f)]
     protected float EnergySpentOnFlocking { get; set; }
@@ -39,11 +39,6 @@ public class FlockableFish : EnergyBasedMovingFish
 
     #region Public Methods
 
-    public void Initialize(Flock flock)
-    {
-        CurrentFlock = flock;
-    }
-
     public void UpdateBehaviourValues(Vector3 avgPosition, Vector3 avgMoveVector, Vector3 avgNeighbourAvoidanceVector, Vector3 avgPredatorAvoidanceVector)
     {
         AvgPosition = avgPosition;
@@ -56,6 +51,13 @@ public class FlockableFish : EnergyBasedMovingFish
     {
         CurrentFlock.FishKilled(this);
         Destroy(gameObject);
+    }
+    
+    public override void Spawn(Vector3 position, Vector3 direction, Quaternion rotation, Transform parent, GameObject prefab)
+    {
+        base.Spawn( position,  direction,  rotation,  parent,  prefab);
+        CurrentFlock = Flock.Instance;
+        CurrentFlock.FishSpawned(this);
     }
 
     #endregion
@@ -89,11 +91,18 @@ public class FlockableFish : EnergyBasedMovingFish
         moveVector += AlignmentBehaviour();
         moveVector += CohesionBehaviour();
         moveVector += SeparationBehaviour();
-        
+
+        Vector3? reproductionVector = GetReproductionBehaviour();
+
+        if (reproductionVector != null)
+        {
+            moveVector = (Vector3) reproductionVector;
+        }
+
         moveVector = moveVector.ClampMagnitude(MaxSpeed * EnergySpentOnFlocking, MinSpeed);
         
         moveVector += PredatorAvoidanceBehaviour();
-
+        
         return moveVector;
     }
 

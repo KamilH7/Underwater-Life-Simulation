@@ -6,6 +6,8 @@ public class Flock : MonoBehaviour
 {
     #region Serialized Fields
 
+    public static Flock Instance { get; protected set; }
+
     [Header("Initialization Settings"), SerializeField]
     private bool spawnAutomatically = true;
     [SerializeField, ShowIf(nameof(spawnAutomatically))]
@@ -42,13 +44,12 @@ public class Flock : MonoBehaviour
 
     private void Start()
     {
+        Instance = this;
+        
         if (spawnAutomatically)
         {
             SpawnFlock();
         }
-
-        InitializeFlock();
-        InitializePredators();
     }
 
     private void Update()
@@ -57,6 +58,13 @@ public class Flock : MonoBehaviour
     }
 
     #endregion
+
+    public void FishSpawned(FlockableFish flockableFish)
+    {
+        CurrentFishes.Add(flockableFish);
+        
+        InformPredatorsOfFishSpawned(flockableFish);
+    }
 
     public void FishKilled(FlockableFish flockableFish)
     {
@@ -67,6 +75,14 @@ public class Flock : MonoBehaviour
     
     #region Private Methods
 
+    private void InformPredatorsOfFishSpawned(FlockableFish flockableFish)
+    {
+        foreach (PredatorFish predator in CurrentPredators)
+        {
+            predator.RemoveFishFromTargets(flockableFish);
+        }
+    }
+    
     private void InformPredatorsOfFishKilled(FlockableFish flockableFish)
     {
         foreach (PredatorFish predator in CurrentPredators)
@@ -74,23 +90,9 @@ public class Flock : MonoBehaviour
             predator.RemoveFishFromTargets(flockableFish);
         }
     }
-
-    private void InitializeFlock()
-    {
-        foreach (var flockableFish in CurrentFishes)
-        {
-            flockableFish.Initialize(this);
-        }
-    }
-
-    private void InitializePredators()
-    {
-        foreach (PredatorFish predator in CurrentPredators)
-        {
-            predator.PopulateTargetsFromFlock(this);
-        }
-    }
     
+    
+
     private void SpawnFlock()
     {
         CurrentFishes = new List<FlockableFish>();
@@ -98,11 +100,9 @@ public class Flock : MonoBehaviour
         for (int i = 0; i < spawnAmount; i++)
         {
             Vector3 spawnPosition = Random.insideUnitSphere * spawnRange;
-            FlockableFish newFish = Instantiate(fishPrefab, spawnPosition + transform.position, Quaternion.identity, transform);
-            newFish.transform.forward = spawnPosition.normalized;
-            CurrentFishes.Add(newFish);
+            FlockableFish newFish = Instantiate(fishPrefab);
+            newFish.Spawn(spawnPosition + transform.position,spawnPosition.normalized, Quaternion.identity, transform, fishPrefab.gameObject);
         }
     }
-
     #endregion
 }

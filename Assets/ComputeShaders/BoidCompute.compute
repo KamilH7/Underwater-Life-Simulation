@@ -40,13 +40,14 @@ void CSMain(uint3 id : SV_DispatchThreadID)
             Boid potentialNeighbour = boids[potentialNeighbourIndex];
 
             float3 displacementVectorToNeighbour = potentialNeighbour.position - boids[currentBoidIndex].position;
+            
 
             float distanceToNeighbour = sqrt(
                 displacementVectorToNeighbour.x * displacementVectorToNeighbour.x +
                 displacementVectorToNeighbour.y * displacementVectorToNeighbour.y +
                 displacementVectorToNeighbour.z * displacementVectorToNeighbour.z);
 
-            if (distanceToNeighbour < viewDistance)
+            if (distanceToNeighbour < viewDistance && distanceToNeighbour > 0)
             {
                 numNeighbours += 1;
                 boids[currentBoidIndex].avgPosition += potentialNeighbour.position;

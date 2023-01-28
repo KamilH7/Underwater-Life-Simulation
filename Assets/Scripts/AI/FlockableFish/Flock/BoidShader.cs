@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -76,6 +77,11 @@ public class BoidShader : SingletonScriptableObject<BoidShader>
     {
         for (int i = 0; i < agents.Count; i++)
         {
+            if (float.IsNaN(newAgentData[i].avgNeighbourAvoidanceVector.x))
+            {
+                Debug.Log(newAgentData[i].avgNeighbourAvoidanceVector);
+            }
+            
             agents[i].UpdateBehaviourValues(newAgentData[i].avgPosition,
                                             newAgentData[i].avgMoveVector, 
                                             newAgentData[i].avgNeighbourAvoidanceVector, 
