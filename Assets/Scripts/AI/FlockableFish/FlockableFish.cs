@@ -1,7 +1,8 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class FlockableFish : ReproducingFish
+[SelectionBase]
+public class FlockableFish : LifeCycledFish
 {
     [field: Header("Flockable fish values"), SerializeField, Range(0f,1f)]
     protected float EnergySpentOnFlocking { get; set; }
@@ -47,17 +48,17 @@ public class FlockableFish : ReproducingFish
         AvgPredatorAvoidanceVector = avgPredatorAvoidanceVector;
     }
 
-    public override void Kill()
-    {
-        CurrentFlock.FishKilled(this);
-        Destroy(gameObject);
-    }
-    
     public override void Spawn(Vector3 position, Vector3 direction, Quaternion rotation, Transform parent, GameObject prefab)
     {
         base.Spawn( position,  direction,  rotation,  parent,  prefab);
         CurrentFlock = Flock.Instance;
         CurrentFlock.FishSpawned(this);
+    }
+
+    public override void Despawn()
+    {
+        CurrentFlock.FishKilled(this);
+        base.Despawn();
     }
 
     #endregion

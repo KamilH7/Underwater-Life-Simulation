@@ -57,24 +57,26 @@ MonoBehaviour:
   <MaxEnergy>k__BackingField: 100
   <MaxStartEnergy>k__BackingField: 0.2
   <MinStartEnergy>k__BackingField: 0.6
-  <RegenerationSpeed>k__BackingField: 2
+  <RegenerationSpeed>k__BackingField: 0.5
   <MaxEnergyDecaySpeed>k__BackingField: 1
   <DecaySpeedThreshold>k__BackingField: 0.8
   <MaxSpeedDecay>k__BackingField: 0.8
   <CurrentEnergy>k__BackingField: 0
   <RealMaxSpeed>k__BackingField: 0
   <RealMaxSteerSpeed>k__BackingField: 0
-  <PartnerViewRange>k__BackingField: 5
-  <ChildPrefab>k__BackingField: {fileID: 4115476135907606149}
+  <PartnerViewRange>k__BackingField: 15
   <MinEnergyRatioForReproduction>k__BackingField: 0.8
-  <ReproductionCooldown>k__BackingField: 5
-  <ReproductionRange>k__BackingField: 0.5
+  <ReproductionCooldown>k__BackingField: 40
+  <ReproductionRange>k__BackingField: 0.05
   <ReproductionEnergyPercentCost>k__BackingField: 0.5
   <CurrentReproductionGroup>k__BackingField: {fileID: 11400000, guid: 841870d61dfb88f42b345aef5c6ad3ab, type: 2}
+  <MinLifetimeSeconds>k__BackingField: 30
+  <MaxLifetimeSeconds>k__BackingField: 120
   <CurrentPartner>k__BackingField: {fileID: 0}
   <IsReproductionOnCooldown>k__BackingField: 0
   <PartnerRequested>k__BackingField: 0
   <HasReproduced>k__BackingField: 0
+  <LifetimeSeconds>k__BackingField: 0
   <EnergySpentOnFlocking>k__BackingField: 0.8
   <CurrentFlock>k__BackingField: {fileID: 0}
   <AvgPosition>k__BackingField: {x: 0, y: 0, z: 0}

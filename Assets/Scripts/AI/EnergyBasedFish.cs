@@ -1,4 +1,3 @@
-using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -71,6 +70,11 @@ public class EnergyBasedFish : MovingFish
         CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, MaxEnergy);
 
         UpdateMaxSpeed();
+    }
+
+    protected void AddEnergy(float amount)
+    {
+        CurrentEnergy = Mathf.Clamp(CurrentEnergy + amount, 0, MaxEnergy);
     }
 
     protected float EnergyRatio => CurrentEnergy / MaxEnergy;

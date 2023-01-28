@@ -6,18 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="77c63094-bc65-4fdb-ab0f-35f49b4efebf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Underwater-Life-Simulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Underwater-Life-Simulation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ComputeShaders/BoidCompute.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ComputeShaders/BoidCompute.compute" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/FlockableFish.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/FlockableFish.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedMovingFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedMovingFish.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Predator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Predator.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main Scene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/BoidShader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/BoidShader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/Flock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/Flock.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/Flock.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/Flock.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/FlockableFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/FlockableFish.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/Interfaces/IFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/Interfaces/IFish.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/Interfaces/ISpawnable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/Interfaces/ISpawnable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/PredatorFish/PredatorFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/PredatorFish/PredatorFish.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/ReproducingFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/LifeCycledFish.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/ReproducingFish.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/LifeCycledFish.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/ReproductionGroup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/ReproductionGroup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,17 +38,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.smartKeys_rider&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Discover.Launch.Via.Unity": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "XThreadsFramesViewSplitterKey": "0.50609756",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.smartKeys_rider",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="S:\Unity\Installs\2021.3.12f1\Editor\Unity.exe" />
@@ -88,7 +92,8 @@
       <workItem from="1667746935110" duration="126000" />
       <workItem from="1667747089922" duration="6669000" />
       <workItem from="1673105546246" duration="12430000" />
-      <workItem from="1674917025663" duration="10300000" />
+      <workItem from="1674917025663" duration="11531000" />
+      <workItem from="1674928743153" duration="8033000" />
     </task>
     <servers />
   </component>
@@ -111,24 +116,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/BoidShader.cs</url>
-          <line>84</line>
-          <properties documentPath="S:\Unity\Projects\Underwater-Life-Simulation\Assets\Scripts\AI\FlockableFish\Flock\BoidShader.cs" initialLine="84" containingFunctionPresentation="method 'PopulateBoidsWithNewData'">
-            <startOffsets>
-              <option value="2669" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2984" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

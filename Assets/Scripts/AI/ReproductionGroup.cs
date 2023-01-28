@@ -5,19 +5,38 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ReproductionGroup", menuName = "ReproductionGroup")]
 public class ReproductionGroup : ScriptableObject
 {
-    [field: SerializeField, ReadOnly]
-    private List<ReproducingFish> availableFishes;
+    #region Serialized Fields
 
-    public void RequestPartner(ReproducingFish newFish)
+    [field: SerializeField, ReadOnly]
+    private List<LifeCycledFish> availableFishes;
+
+    #endregion
+
+    #region Unity Callbacks
+
+    private void OnEnable()
+    {
+        availableFishes = new List<LifeCycledFish>();
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    public void RequestPartner(LifeCycledFish newFish)
     {
         availableFishes.Add(newFish);
         CalculatePartners();
     }
-    
-    private void OnEnable()
+
+    public void StopRequestingPartner(LifeCycledFish fish)
     {
-        availableFishes = new List<ReproducingFish>();
+        availableFishes.Remove(fish);
     }
+
+    #endregion
+
+    #region Private Methods
 
     private bool CalculatePartners()
     {
@@ -29,7 +48,7 @@ public class ReproductionGroup : ScriptableObject
                 {
                     continue;
                 }
-                
+
                 if (TryMatchFishes(availableFishes[i], availableFishes[j]))
                 {
                     return true;
@@ -40,7 +59,7 @@ public class ReproductionGroup : ScriptableObject
         return false;
     }
 
-    private bool TryMatchFishes(ReproducingFish fish1, ReproducingFish fish2)
+    private bool TryMatchFishes(LifeCycledFish fish1, LifeCycledFish fish2)
     {
         float distance = (fish1.transform.position - fish2.transform.position).magnitude;
 
@@ -49,11 +68,13 @@ public class ReproductionGroup : ScriptableObject
             availableFishes.Remove(fish1);
             fish1.PartnerFoundEvent.Invoke(fish2);
             availableFishes.Remove(fish2);
-            fish1.PartnerFoundEvent.Invoke(fish1);
+            fish2.PartnerFoundEvent.Invoke(fish1);
 
             return true;
         }
 
         return false;
     }
+
+    #endregion
 }

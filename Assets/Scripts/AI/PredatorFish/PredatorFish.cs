@@ -1,29 +1,38 @@
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PredatorFish : EnergyBasedFish
+[SelectionBase]
+public class PredatorFish : LifeCycledFish
 {
     [field: SerializeField]
     protected float ViewRange { get; set; }
     [field: SerializeField]
     protected float KillRange { get; set; }
+    [field: SerializeField]
+    protected float EnergyForKill { get; set; }
 
     [field: SerializeField, ReadOnly]
     protected MovingFish CurrentTarget { get; set; }
     [field: SerializeField, ReadOnly]
     protected float CurrentDistance { get; set; }
-    [field: SerializeField, ReadOnly]
-    protected List<MovingFish> TargetCollection { get; set; }
-
     [field: SerializeField, ShowIf(nameof(DebugMode))]
     protected Color TargetVectorColor { get; set; }
+    protected Flock TargetsFlock { get; set; }
 
     #region Unity Callbacks
 
-    protected void Update()
+    protected virtual void Update()
     {
         DrawDebug();
+
+        Vector3? reproductionVector = GetReproductionBehaviour();
+
+        if (reproductionVector != null)
+        {
+            Move((Vector3) reproductionVector);
+            return;
+        }
+
         SetTarget();
 
         if (CurrentTarget != null)
@@ -40,24 +49,24 @@ public class PredatorFish : EnergyBasedFish
 
     #region Public Methods
 
-    public void PopulateTargetsFromFlock(Flock flock)
+    public void Initialize()
     {
-        foreach (MovingFish fish in flock.CurrentFishes)
-        {
-            TargetCollection.Add(fish);
-        }
+        TargetsFlock = Flock.Instance;
+        TargetsFlock.CurrentPredators.Add(this);
     }
 
-    public void RemoveFishFromTargets(MovingFish fish)
+    public override void Spawn(Vector3 position, Vector3 direction, Quaternion rotation, Transform parent, GameObject prefab)
     {
-        TargetCollection.Remove(fish);
-    }
-    
-    public void AddFishToTargets(MovingFish fish)
-    {
-        TargetCollection.Add(fish);
+        base.Spawn(position, direction, rotation, parent, prefab);
+        Initialize();
     }
 
+    public override void Despawn()
+    {
+        TargetsFlock.CurrentPredators.Remove(this);
+
+        base.Despawn();
+    }
 
     #endregion
 
@@ -101,8 +110,9 @@ public class PredatorFish : EnergyBasedFish
 
     private void KillCurrentTarget()
     {
-        CurrentTarget.Kill();
+        CurrentTarget.Despawn();
         CurrentTarget = null;
+        AddEnergy(EnergyForKill);
     }
 
     private void SetTarget()
@@ -115,7 +125,7 @@ public class PredatorFish : EnergyBasedFish
             }
         }
 
-        foreach (MovingFish fish in TargetCollection)
+        foreach (FlockableFish fish in TargetsFlock.CurrentFishes)
         {
             if (CurrentTarget == null)
             {

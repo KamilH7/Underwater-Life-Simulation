@@ -43,9 +43,9 @@ public abstract class MovingFish : MonoBehaviour, IFish
         FishPrefab = prefab;
     }
 
-    public virtual void Kill()
+    public virtual void Despawn()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     #endregion

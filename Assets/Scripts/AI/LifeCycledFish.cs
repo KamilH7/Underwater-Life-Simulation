@@ -4,19 +4,16 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ReproducingFish : EnergyBasedFish
+public class LifeCycledFish : EnergyBasedFish
 {
     #region Public Properties
 
-    public Action<ReproducingFish> PartnerFoundEvent { get; set; }
+    public Action<LifeCycledFish> PartnerFoundEvent { get; set; }
 
-    public Action<ReproducingFish> FishWasBornEvent { get; set; }
-    [field: SerializeField]
+    [field: Header("Reproducing Settings"), SerializeField]
     public float PartnerViewRange { get; set; }
 
     #endregion
-
-    [field: Header("Reproducing Settings")]
 
     [field: SerializeField, Range(0f, 1f)]
     protected float MinEnergyRatioForReproduction { get; set; }
@@ -28,21 +25,28 @@ public class ReproducingFish : EnergyBasedFish
     protected float ReproductionEnergyPercentCost { get; set; }
     [field: SerializeField]
     protected ReproductionGroup CurrentReproductionGroup { get; set; }
-    [field: SerializeField, ReadOnly]
-    private ReproducingFish CurrentPartner { get; set; }
+
+    [field: Header("Death Settings"), SerializeField]
+    private float MinLifetimeSeconds { get; set; }
+    [field: SerializeField]
+    private float MaxLifetimeSeconds { get; set; }
 
     [field: SerializeField, ReadOnly]
-    private bool IsReproductionOnCooldown { get; set; }
+    private LifeCycledFish CurrentPartner { get; set; }
     [field: SerializeField, ReadOnly]
     private bool PartnerRequested { get; set; }
     [field: SerializeField, ReadOnly]
     private bool HasReproduced { get; set; }
+    [field: SerializeField, ReadOnly]
+    private float LifetimeSeconds { get; set; }
 
     #region Unity Callbacks
 
     protected override void OnEnable()
     {
+        PartnerRequested = false;
         base.OnEnable();
+        StartCoroutine(LifetimeCoroutine());
         AttachEvents();
     }
 
@@ -54,6 +58,17 @@ public class ReproducingFish : EnergyBasedFish
     #endregion
 
     #region Public Methods
+
+    public override void Despawn()
+    {
+        if (PartnerRequested)
+        {
+            CurrentReproductionGroup.StopRequestingPartner(this);
+            PartnerRequested = false;
+        }
+
+        base.Despawn();
+    }
 
     public void Reproduced()
     {
@@ -71,14 +86,6 @@ public class ReproducingFish : EnergyBasedFish
 
     protected Vector3? GetReproductionBehaviour()
     {
-        if (CanReproduce())
-        {
-            if (CanRequestPartner())
-            {
-                RequestPartner();
-            }
-        }
-
         if (HasPartner())
         {
             Vector3 moveVectorToPartner = CalculateMoveVectorToPartner();
@@ -89,6 +96,14 @@ public class ReproducingFish : EnergyBasedFish
             }
 
             return moveVectorToPartner;
+        }
+        
+        if (CanReproduce())
+        {
+            if (CanRequestPartner())
+            {
+                RequestPartner();
+            }
         }
 
         return null;
@@ -108,19 +123,17 @@ public class ReproducingFish : EnergyBasedFish
         PartnerFoundEvent -= PartnerFound;
     }
 
-    private void PartnerFound(ReproducingFish newPartner)
+    private void PartnerFound(LifeCycledFish newPartner)
     {
         CurrentPartner = newPartner;
+        PartnerRequested = true;
     }
 
     private void Reproduce()
     {
         if (HasReproduced == false)
         {
-            ReproducingFish child = SpawnChild();
-
-            FishWasBornEvent?.Invoke(child);
-            
+            SpawnChild();
             CurrentPartner.Reproduced();
             Reproduced();
         }
@@ -150,25 +163,23 @@ public class ReproducingFish : EnergyBasedFish
 
     private IEnumerator ReproductionCooldownCoroutine()
     {
-        IsReproductionOnCooldown = true;
-
         yield return new WaitForSeconds(ReproductionCooldown);
-        IsReproductionOnCooldown = false;
+        HasReproduced = false;
     }
 
-    private ReproducingFish SpawnChild()
+    private LifeCycledFish SpawnChild()
     {
         Vector3 spawnPosition = (transform.position + CurrentPartner.transform.position) / 2;
 
-        ReproducingFish newInstance = Instantiate(FishPrefab).GetComponent<ReproducingFish>();
+        LifeCycledFish newInstance = Instantiate(FishPrefab).GetComponent<LifeCycledFish>();
         newInstance.Spawn(spawnPosition, transform.forward, Random.rotation, transform.parent, FishPrefab);
-        
+
         return newInstance;
     }
 
     private bool CanReproduce()
     {
-        return EnergyRatio >= MinEnergyRatioForReproduction && !IsReproductionOnCooldown;
+        return EnergyRatio >= MinEnergyRatioForReproduction && !HasReproduced;
     }
 
     private bool HasPartner()
@@ -178,7 +189,16 @@ public class ReproducingFish : EnergyBasedFish
 
     private bool CanRequestPartner()
     {
-        return PartnerRequested == false;
+        return PartnerRequested == false && HasReproduced == false;
+    }
+
+    private IEnumerator LifetimeCoroutine()
+    {
+        LifetimeSeconds = Random.Range(MinLifetimeSeconds, MaxLifetimeSeconds);
+
+        yield return new WaitForSeconds(LifetimeSeconds);
+
+        Despawn();
     }
 
     #endregion

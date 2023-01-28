@@ -18,8 +18,6 @@ public class Flock : MonoBehaviour
     private int spawnAmount;
     [field: SerializeField]
     public List<FlockableFish> CurrentFishes { get; private set; } = new();
-    [field: SerializeField]
-    public List<PredatorFish> CurrentPredators { get; private set; } = new();
 
     #endregion
 
@@ -39,13 +37,18 @@ public class Flock : MonoBehaviour
     public float SafeDistance { get; private set; }
 
     #endregion
+    
+    public List<PredatorFish> CurrentPredators { get; private set; } = new();
 
     #region Unity Callbacks
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
-        
+    }
+
+    private void Start()
+    {
         if (spawnAutomatically)
         {
             SpawnFlock();
@@ -54,7 +57,10 @@ public class Flock : MonoBehaviour
 
     private void Update()
     {
-        BoidShader.Instance.PopulateAgentsWithData(this);
+        if (CurrentFishes.Count > 0)
+        {
+            BoidShader.Instance.PopulateAgentsWithData(this);
+        }
     }
 
     #endregion
@@ -62,35 +68,14 @@ public class Flock : MonoBehaviour
     public void FishSpawned(FlockableFish flockableFish)
     {
         CurrentFishes.Add(flockableFish);
-        
-        InformPredatorsOfFishSpawned(flockableFish);
     }
 
     public void FishKilled(FlockableFish flockableFish)
     {
         CurrentFishes.Remove(flockableFish);
-        
-        InformPredatorsOfFishKilled(flockableFish);
     }
     
     #region Private Methods
-
-    private void InformPredatorsOfFishSpawned(FlockableFish flockableFish)
-    {
-        foreach (PredatorFish predator in CurrentPredators)
-        {
-            predator.RemoveFishFromTargets(flockableFish);
-        }
-    }
-    
-    private void InformPredatorsOfFishKilled(FlockableFish flockableFish)
-    {
-        foreach (PredatorFish predator in CurrentPredators)
-        {
-            predator.RemoveFishFromTargets(flockableFish);
-        }
-    }
-    
     
 
     private void SpawnFlock()
