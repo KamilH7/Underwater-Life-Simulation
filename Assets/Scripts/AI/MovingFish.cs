@@ -16,7 +16,7 @@ public abstract class MovingFish : MonoBehaviour, IFish
     [field: Header("Collision Detection Settings"), SerializeField]
     public float CollisionDetectDistance { get; protected set; }
 
-    [field: SerializeField, Range(0, 1)]
+    [field: SerializeField, Range(0, 100)]
     public float MaxSteerSpeed { get; protected set; }
 
     #endregion
@@ -74,8 +74,8 @@ public abstract class MovingFish : MonoBehaviour, IFish
         MoveVector = AvoidObstacles(MoveVector);
         MoveVector = MoveVector.ClampMagnitude(MaxSpeed, MinSpeed);
 
-        transform.forward = MoveVector;
-        transform.position += MoveVector * Time.deltaTime;
+        transform.forward += MoveVector.normalized * Time.deltaTime;
+        transform.position += transform.forward * (MoveVector.magnitude * Time.deltaTime);
         
         CurrentSpeed = MoveVector.magnitude;
     }

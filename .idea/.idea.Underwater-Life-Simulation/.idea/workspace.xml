@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="77c63094-bc65-4fdb-ab0f-35f49b4efebf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Underwater-Life-Simulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Underwater-Life-Simulation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Menu.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Menu.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/FlockableFish.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/FlockableFish.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Predator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Predator.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +87,7 @@
       <workItem from="1673105546246" duration="12430000" />
       <workItem from="1674917025663" duration="11531000" />
       <workItem from="1674928743153" duration="8033000" />
-      <workItem from="1675002310048" duration="9888000" />
+      <workItem from="1675002310048" duration="11233000" />
     </task>
     <servers />
   </component>

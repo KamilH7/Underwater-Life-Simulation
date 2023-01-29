@@ -49,7 +49,7 @@ MonoBehaviour:
   <MaxSpeed>k__BackingField: 10
   <CurrentSpeed>k__BackingField: 0
   <CollisionDetectDistance>k__BackingField: 10
-  <MaxSteerSpeed>k__BackingField: 0.06
+  <MaxSteerSpeed>k__BackingField: 3.6
   <DebugMode>k__BackingField: 0
   <MoveVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   <CollisionDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
@@ -73,7 +73,6 @@ MonoBehaviour:
   <MinLifetimeSeconds>k__BackingField: 100
   <MaxLifetimeSeconds>k__BackingField: 200
   <CurrentPartner>k__BackingField: {fileID: 0}
-  <IsReproductionOnCooldown>k__BackingField: 0
   <PartnerRequested>k__BackingField: 0
   <HasReproduced>k__BackingField: 0
   <LifetimeSeconds>k__BackingField: 0
