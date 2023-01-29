@@ -6,21 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="77c63094-bc65-4fdb-ab0f-35f49b4efebf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Underwater-Life-Simulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Underwater-Life-Simulation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/FlockableFish.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/FlockableFish.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Predator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Predator.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/BoidShader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/BoidShader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/Flock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/Flock.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/Flock.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/Flock/Flock.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/FlockableFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/FlockableFish/FlockableFish.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/Interfaces/ISpawnable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/Interfaces/ISpawnable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/PredatorFish/PredatorFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/PredatorFish/PredatorFish.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/ReproducingFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/LifeCycledFish.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/ReproducingFish.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/LifeCycledFish.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/ReproductionGroup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/ReproductionGroup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Menu.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Menu.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +17,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1d3dacd00ce441dc8c61d528a2193088158400/2d/cd47d138/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/DataLabel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/DataPoint.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/GraphDataPopulator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/SimulationSpeedSlider.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -38,18 +32,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "XThreadsFramesViewSplitterKey": "0.50609756",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.smartKeys_rider",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.50609756&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.smartKeys_rider&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="S:\Unity\Installs\2021.3.12f1\Editor\Unity.exe" />
@@ -69,10 +63,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="14808">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="25324">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="14808" />
+      <option name="pid" value="25324" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -94,6 +88,7 @@
       <workItem from="1673105546246" duration="12430000" />
       <workItem from="1674917025663" duration="11531000" />
       <workItem from="1674928743153" duration="8033000" />
+      <workItem from="1675002310048" duration="9888000" />
     </task>
     <servers />
   </component>
@@ -116,5 +111,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/UI/GameObjectCountGraph.cs</url>
+          <line>74</line>
+          <properties documentPath="S:\Unity\Projects\Underwater-Life-Simulation\Assets\Scripts\UI\GameObjectCountGraph.cs" initialLine="49" containingFunctionPresentation="method 'PositionCurrentDataOnGraph'">
+            <startOffsets>
+              <option value="2046" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2096" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
