@@ -37,7 +37,7 @@ public class Flock : MonoBehaviour
     public float SafeDistance { get; private set; }
 
     #endregion
-    
+    [field: SerializeField, ReadOnly]
     public List<PredatorFish> CurrentPredators { get; private set; } = new();
 
     #region Unity Callbacks

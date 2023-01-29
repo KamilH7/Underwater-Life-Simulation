@@ -29,7 +29,8 @@ public class PredatorFish : LifeCycledFish
 
         if (reproductionVector != null)
         {
-            Move((Vector3) reproductionVector);
+            Move((Vector3)reproductionVector);
+
             return;
         }
 
@@ -48,12 +49,6 @@ public class PredatorFish : LifeCycledFish
     #endregion
 
     #region Public Methods
-
-    public void Initialize()
-    {
-        TargetsFlock = Flock.Instance;
-        TargetsFlock.CurrentPredators.Add(this);
-    }
 
     public override void Spawn(Vector3 position, Vector3 direction, Quaternion rotation, Transform parent, GameObject prefab)
     {
@@ -90,6 +85,12 @@ public class PredatorFish : LifeCycledFish
 
     #region Private Methods
 
+    private void Initialize()
+    {
+        TargetsFlock = Flock.Instance;
+        TargetsFlock.CurrentPredators.Add(this);
+    }
+
     private void TargetBehaviour()
     {
         Vector3 moveVector = CurrentTarget.transform.position - transform.position;
@@ -104,8 +105,7 @@ public class PredatorFish : LifeCycledFish
 
     private void DocileBehaviour()
     {
-        Vector3 direction = Vector3.forward;
-        Move(direction * MinSpeed);
+        Move(transform.forward * MinSpeed);
     }
 
     private void KillCurrentTarget()

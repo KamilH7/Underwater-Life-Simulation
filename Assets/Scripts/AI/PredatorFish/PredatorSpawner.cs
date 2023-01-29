@@ -27,7 +27,6 @@ public class PredatorSpawner : MonoBehaviour
             Vector3 spawnPosition = Random.insideUnitSphere * spawnRange;
             PredatorFish newFish = Instantiate(fishPrefab);
             newFish.Spawn(spawnPosition + transform.position,spawnPosition.normalized, Quaternion.identity, transform, fishPrefab.gameObject);
-            newFish.Initialize();
         }
     }
 }
