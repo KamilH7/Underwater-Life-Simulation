@@ -46,10 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MinSpeed>k__BackingField: 3
-  <MaxSpeed>k__BackingField: 10
+  <MaxSpeed>k__BackingField: 7
   <CurrentSpeed>k__BackingField: 0
   <CollisionDetectDistance>k__BackingField: 10
-  <MaxSteerSpeed>k__BackingField: 3.6
+  <MaxSteerSpeed>k__BackingField: 1.8
   <DebugMode>k__BackingField: 0
   <MoveVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   <CollisionDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
@@ -67,7 +67,7 @@ MonoBehaviour:
   <PartnerViewRange>k__BackingField: 15
   <MinEnergyRatioForReproduction>k__BackingField: 0.8
   <ReproductionCooldown>k__BackingField: 70
-  <ReproductionRange>k__BackingField: 0.15
+  <ReproductionRange>k__BackingField: 0.4
   <ReproductionEnergyPercentCost>k__BackingField: 0.3
   <CurrentReproductionGroup>k__BackingField: {fileID: 11400000, guid: 23e31c7aa79625d4c997add0d83761d9, type: 2}
   <MinLifetimeSeconds>k__BackingField: 100

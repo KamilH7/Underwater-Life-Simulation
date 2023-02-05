@@ -70,28 +70,18 @@ public abstract class MovingFish : MonoBehaviour, IFish
 
     protected virtual void Move(Vector3 inputVector)
     {
-        MoveVector = SteerInto(inputVector);
-        MoveVector = AvoidObstacles(MoveVector);
+        MoveVector = inputVector;
+        Vector3 steerVector = Vector3.Lerp(transform.forward, MoveVector, Time.deltaTime * MaxSteerSpeed);
+        transform.forward += AvoidObstacles(steerVector);
         MoveVector = MoveVector.ClampMagnitude(MaxSpeed, MinSpeed);
-
-        transform.forward += MoveVector.normalized * Time.deltaTime;
         transform.position += transform.forward * (MoveVector.magnitude * Time.deltaTime);
         
         CurrentSpeed = MoveVector.magnitude;
     }
 
-    protected Vector3 SteerInto(Vector3 steerInto)
-    {
-        Vector3 directionChange = steerInto.normalized - transform.forward;
-        Vector3 steeredDirectionChange = directionChange * MaxSteerSpeed;
-        Vector3 goalDirection = transform.forward + steeredDirectionChange;
-
-        return steerInto.magnitude * goalDirection;
-    }
-
     protected Vector3 AvoidObstacles(Vector3 moveVector)
     {
-        RaycastHit hitInfo = GetCollisionInfo(transform.position, transform.forward);
+        RaycastHit hitInfo = GetCollisionInfo(transform.position, moveVector.normalized);
 
         if (hitInfo.collider)
         {

@@ -540,6 +540,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 24be8e1643b8a474fbb57fcda8a1c454, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 24be8e1643b8a474fbb57fcda8a1c454, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -558,7 +562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 24be8e1643b8a474fbb57fcda8a1c454, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.880001
+      value: 22.57
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 24be8e1643b8a474fbb57fcda8a1c454, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1720,11 +1724,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnAutomatically: 1
-  spawnRange: 5
+  spawnRange: 50
   fishPrefab: {fileID: 5941912355943017026, guid: 7ad363b84671ad54995d2fb83cb71575, type: 3}
-  spawnAmount: 100
+  spawnAmount: 1
   <CurrentFishes>k__BackingField: []
-  <AlignmentBehaviour>k__BackingField: 1
+  <AlignmentBehaviour>k__BackingField: 3
   <CohesionBehaviour>k__BackingField: 2
   <SeparationBehaviour>k__BackingField: 5
   <FearBehaviour>k__BackingField: 100
@@ -2766,7 +2770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de35d0c59624cfe44ae544339dcd05a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnAutomatically: 1
+  spawnAutomatically: 0
   spawnRange: 5
   fishPrefab: {fileID: 4428553604292058269, guid: 6449a371e2f56dc4ca1ba3caaf28aa6a, type: 3}
   spawnAmount: 5
@@ -2923,11 +2927,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7493637596583796914, guid: 629477a98503a414a8d8da4bff170afd, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7493637596583796914, guid: 629477a98503a414a8d8da4bff170afd, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7595114373900797680, guid: 629477a98503a414a8d8da4bff170afd, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2951,19 +2955,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8158699504353928421, guid: 629477a98503a414a8d8da4bff170afd, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8158699504353928421, guid: 629477a98503a414a8d8da4bff170afd, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8158699504353928421, guid: 629477a98503a414a8d8da4bff170afd, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8642089346977606069, guid: 629477a98503a414a8d8da4bff170afd, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.09000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 8670704872959111784, guid: 629477a98503a414a8d8da4bff170afd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 629477a98503a414a8d8da4bff170afd, type: 3}

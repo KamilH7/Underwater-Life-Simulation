@@ -45,20 +45,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e49cdf5f735ece42ae4679c7d88ba8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MinSpeed>k__BackingField: 0.1
+  <MinSpeed>k__BackingField: 1
   <MaxSpeed>k__BackingField: 5
   <CurrentSpeed>k__BackingField: 0
   <CollisionDetectDistance>k__BackingField: 5
-  <MaxSteerSpeed>k__BackingField: 6
+  <MaxSteerSpeed>k__BackingField: 2
   <DebugMode>k__BackingField: 0
-  <MoveVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <CollisionDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <CollisionNotDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <MoveVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
+  <CollisionDetectedColor>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
+  <CollisionNotDetectedColor>k__BackingField: {r: 0, g: 1, b: 0.04902649, a: 1}
   <MaxEnergy>k__BackingField: 100
-  <MaxStartEnergy>k__BackingField: 0.2
-  <MinStartEnergy>k__BackingField: 0.6
-  <RegenerationSpeed>k__BackingField: 0.5
-  <MaxEnergyDecaySpeed>k__BackingField: 1
+  <MaxStartEnergy>k__BackingField: 0.6
+  <MinStartEnergy>k__BackingField: 1
+  <RegenerationSpeed>k__BackingField: 1
+  <MaxEnergyDecaySpeed>k__BackingField: 0.1
   <DecaySpeedThreshold>k__BackingField: 0.8
   <MaxSpeedDecay>k__BackingField: 0.8
   <CurrentEnergy>k__BackingField: 0
@@ -82,11 +82,11 @@ MonoBehaviour:
   <AvgMoveVector>k__BackingField: {x: 0, y: 0, z: 0}
   <AvgNeighbourAvoidanceVector>k__BackingField: {x: 0, y: 0, z: 0}
   <AvgPredatorAvoidanceVector>k__BackingField: {x: 0, y: 0, z: 0}
-  <AlignmentBehaviourColour>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <CohesionBehaviourColour>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <SeparationBehaviourColour>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <PredatorAvoidanceBehaviourColour>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <FinalBehaviourColour>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <AlignmentBehaviourColour>k__BackingField: {r: 0, g: 1, b: 0.8967023, a: 1}
+  <CohesionBehaviourColour>k__BackingField: {r: 0, g: 0.43849897, b: 1, a: 1}
+  <SeparationBehaviourColour>k__BackingField: {r: 0, g: 0.018231392, b: 1, a: 1}
+  <PredatorAvoidanceBehaviourColour>k__BackingField: {r: 0.44477654, g: 0, b: 1, a: 1}
+  <FinalBehaviourColour>k__BackingField: {r: 0.75380325, g: 0, b: 1, a: 1}
 --- !u!1001 &1279554406846016213
 PrefabInstance:
   m_ObjectHideFlags: 0
