@@ -2,18 +2,15 @@ using UnityEngine;
 
 public class DrawDirections : MonoBehaviour
 {
-    private void OnValidate()
-    {
-        Draw();
-    }
-
-    private void Draw()
+    private void OnDrawGizmos()
     {
         Vector3[] rayDirections = Values.Instance.GoldenRatioDirections;
-
+        
         for (int i = 0; i < rayDirections.Length; i++)
         {
-            Debug.DrawLine(transform.position, transform.position + rayDirections[i] * 5, Color.black, 1000);
+            float ColorValue = i * 0.002f;
+            Gizmos.color = new Color(0, ColorValue,  ColorValue);
+            Gizmos.DrawSphere(transform.position + rayDirections[i] * 5, 0.1f);
         }
     }
 }

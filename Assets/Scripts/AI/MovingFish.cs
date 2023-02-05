@@ -56,7 +56,7 @@ public abstract class MovingFish : MonoBehaviour, IFish
     {
         if (DebugMode)
         {
-            bool headingForObstacle = GetCollisionInfo(transform.position, transform.forward).collider;
+            bool headingForObstacle = GetCollisionInfo(transform.forward).collider;
             Color lineColor = headingForObstacle ? CollisionDetectedColor : CollisionNotDetectedColor;
 
             Vector3 origin = transform.position;
@@ -70,18 +70,21 @@ public abstract class MovingFish : MonoBehaviour, IFish
 
     protected virtual void Move(Vector3 inputVector)
     {
+        Transform cachedTransform = transform;
+        
         MoveVector = inputVector;
         Vector3 steerVector = Vector3.Lerp(transform.forward, MoveVector, Time.deltaTime * MaxSteerSpeed);
-        transform.forward += AvoidObstacles(steerVector);
-        MoveVector = MoveVector.ClampMagnitude(MaxSpeed, MinSpeed);
-        transform.position += transform.forward * (MoveVector.magnitude * Time.deltaTime);
+        cachedTransform.forward += AvoidObstacles(steerVector);
+        
+        Vector3 positionVector = (MoveVector - cachedTransform.position).ClampMagnitude(MaxSpeed, MinSpeed);
+        cachedTransform.position += cachedTransform.forward * (positionVector.magnitude * Time.deltaTime);
         
         CurrentSpeed = MoveVector.magnitude;
     }
 
     protected Vector3 AvoidObstacles(Vector3 moveVector)
     {
-        RaycastHit hitInfo = GetCollisionInfo(transform.position, moveVector.normalized);
+        RaycastHit hitInfo = GetCollisionInfo(moveVector.normalized);
 
         if (hitInfo.collider)
         {
@@ -100,7 +103,7 @@ public abstract class MovingFish : MonoBehaviour, IFish
         {
             var dir = cachedTransform.TransformDirection(rayDirections[i]);
 
-            RaycastHit hit = GetCollisionInfo(cachedTransform.position, dir);
+            RaycastHit hit = GetCollisionInfo(dir);
 
             if (hit.collider == null)
             {
@@ -113,7 +116,7 @@ public abstract class MovingFish : MonoBehaviour, IFish
         return new AvoidanceData(-transform.forward, currentHitInfo.distance, CollisionDetectDistance);
     }
 
-    protected virtual RaycastHit GetCollisionInfo(Vector3 position, Vector3 raycastDirection)
+    protected virtual RaycastHit GetCollisionInfo(Vector3 raycastDirection)
     {
         Physics.Raycast(transform.position, raycastDirection, out RaycastHit hit, CollisionDetectDistance, Values.Instance.ObstacleLayer);
 
