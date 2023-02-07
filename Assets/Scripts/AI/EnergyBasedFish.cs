@@ -81,7 +81,7 @@ public class EnergyBasedFish : MovingFish
     
     private void DecayEnergy()
     {
-        float speedToMaxSpeedRatio = CurrentSpeed / MaxSpeed;
+        float speedToMaxSpeedRatio = CurrentSpeed / RealMaxSpeed;
         float speedOverThreshold = Mathf.Abs(speedToMaxSpeedRatio - DecaySpeedThreshold);
 
         float decayRange = Mathf.Abs(DecaySpeedThreshold - 1);
@@ -97,7 +97,7 @@ public class EnergyBasedFish : MovingFish
 
     private bool IsSpeedOverThreshold()
     {
-        return CurrentSpeed / MaxSpeed > DecaySpeedThreshold;
+        return CurrentSpeed / RealMaxSpeed > DecaySpeedThreshold;
     }
 
     private void UpdateMaxSpeed()

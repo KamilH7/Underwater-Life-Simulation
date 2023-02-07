@@ -7,9 +7,8 @@
     <list default="true" id="77c63094-bc65-4fdb-ab0f-35f49b4efebf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Underwater-Life-Simulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Underwater-Life-Simulation/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Singletons/Values.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Singletons/Values.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ulits/DrawDirections.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Ulits/DrawDirections.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +91,7 @@
       <workItem from="1674928743153" duration="8033000" />
       <workItem from="1675002310048" duration="12965000" />
       <workItem from="1675518661427" duration="11260000" />
-      <workItem from="1675600999798" duration="9841000" />
+      <workItem from="1675600999798" duration="14531000" />
     </task>
     <servers />
   </component>
