@@ -64,10 +64,10 @@ MonoBehaviour:
   <CurrentEnergy>k__BackingField: 0
   <RealMaxSpeed>k__BackingField: 0
   <RealMaxSteerSpeed>k__BackingField: 0
-  <PartnerViewRange>k__BackingField: 8
+  <PartnerViewRange>k__BackingField: 7
   <MinEnergyRatioForReproduction>k__BackingField: 0.7
-  <ReproductionCooldown>k__BackingField: 25.5
-  <ReproductionRange>k__BackingField: 1.5
+  <ReproductionCooldown>k__BackingField: 25
+  <ReproductionRange>k__BackingField: 1.2
   <ReproductionEnergyPercentCost>k__BackingField: 0.65
   <CurrentReproductionGroup>k__BackingField: {fileID: 11400000, guid: 841870d61dfb88f42b345aef5c6ad3ab, type: 2}
   <MinLifetimeSeconds>k__BackingField: 60
