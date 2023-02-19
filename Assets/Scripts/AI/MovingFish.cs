@@ -78,6 +78,11 @@ public abstract class MovingFish : MonoBehaviour, IFish
         
         Vector3 positionVector = (MoveVector - cachedTransform.position).ClampMagnitude(MaxSpeed, MinSpeed);
         cachedTransform.position += cachedTransform.forward * (positionVector.magnitude * Time.deltaTime);
+
+        if (transform.position.magnitude > 60)
+        {
+            transform.position = Random.insideUnitSphere;
+        }
         
         CurrentSpeed = MoveVector.magnitude;
     }

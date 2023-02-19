@@ -39,7 +39,7 @@ void CSMain(uint3 id : SV_DispatchThreadID)
         {
             Boid potentialNeighbour = boids[potentialNeighbourIndex];
 
-            float3 displacementVectorToNeighbour = potentialNeighbour.position - boids[currentBoidIndex].position;
+            float3 displacementVectorToNeighbour = boids[currentBoidIndex].position - potentialNeighbour.position;
             
 
             float distanceToNeighbour = sqrt(
@@ -56,7 +56,7 @@ void CSMain(uint3 id : SV_DispatchThreadID)
                 if (distanceToNeighbour < avoidanceDistance)
                 {
                     numNeighboursToAvoid += 1;
-                    boids[currentBoidIndex].avgNeighbourAvoidanceVector += - (displacementVectorToNeighbour * (viewDistance / distanceToNeighbour));
+                    boids[currentBoidIndex].avgNeighbourAvoidanceVector += displacementVectorToNeighbour * (viewDistance / distanceToNeighbour);
                 }
             }
         }

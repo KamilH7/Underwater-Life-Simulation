@@ -1,3 +1,4 @@
+using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class PredatorFish : LifeCycledFish
     [field: SerializeField]
     protected float KillRange { get; set; }
     [field: SerializeField]
+    protected float KillTimer { get; set; } = 1;
+    [field: SerializeField]
     protected float EnergyForKill { get; set; }
 
     [field: SerializeField, ReadOnly]
@@ -18,6 +21,8 @@ public class PredatorFish : LifeCycledFish
     [field: SerializeField, ShowIf(nameof(DebugMode))]
     protected Color TargetVectorColor { get; set; }
     protected Flock TargetsFlock { get; set; }
+
+    protected bool CanHunt { get; set; } = true;
 
     #region Unity Callbacks
 
@@ -34,7 +39,14 @@ public class PredatorFish : LifeCycledFish
             return;
         }
 
-        SetTarget();
+        if (CanHunt)
+        {
+            SetTarget();
+        }
+        else
+        {
+            CurrentTarget = null;
+        }
 
         if (CurrentTarget != null)
         {
@@ -113,6 +125,7 @@ public class PredatorFish : LifeCycledFish
         CurrentTarget.Despawn();
         CurrentTarget = null;
         AddEnergy(EnergyForKill);
+        StartCoroutine(KilLCooldownCoroutine());
     }
 
     private void SetTarget()
@@ -140,6 +153,13 @@ public class PredatorFish : LifeCycledFish
                 CurrentDistance = (transform.position - CurrentTarget.transform.position).magnitude;
             }
         }
+    }
+
+    private IEnumerator KilLCooldownCoroutine()
+    {
+        CanHunt = false;
+        yield return new WaitForSeconds(KillTimer);
+        CanHunt = true;
     }
 
     #endregion

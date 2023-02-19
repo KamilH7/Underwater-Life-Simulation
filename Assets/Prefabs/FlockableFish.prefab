@@ -55,23 +55,23 @@ MonoBehaviour:
   <CollisionDetectedColor>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
   <CollisionNotDetectedColor>k__BackingField: {r: 0, g: 1, b: 0.04902649, a: 1}
   <MaxEnergy>k__BackingField: 100
-  <MaxStartEnergy>k__BackingField: 0.6
-  <MinStartEnergy>k__BackingField: 1
-  <RegenerationSpeed>k__BackingField: 1
+  <MaxStartEnergy>k__BackingField: 1
+  <MinStartEnergy>k__BackingField: 0.7
+  <RegenerationSpeed>k__BackingField: 2
   <MaxEnergyDecaySpeed>k__BackingField: 0.1
   <DecaySpeedThreshold>k__BackingField: 0.8
   <MaxSpeedDecay>k__BackingField: 0.8
   <CurrentEnergy>k__BackingField: 0
   <RealMaxSpeed>k__BackingField: 0
   <RealMaxSteerSpeed>k__BackingField: 0
-  <PartnerViewRange>k__BackingField: 15
-  <MinEnergyRatioForReproduction>k__BackingField: 0.8
-  <ReproductionCooldown>k__BackingField: 40
-  <ReproductionRange>k__BackingField: 0.05
-  <ReproductionEnergyPercentCost>k__BackingField: 0.5
+  <PartnerViewRange>k__BackingField: 8
+  <MinEnergyRatioForReproduction>k__BackingField: 0.7
+  <ReproductionCooldown>k__BackingField: 25.5
+  <ReproductionRange>k__BackingField: 1.5
+  <ReproductionEnergyPercentCost>k__BackingField: 0.65
   <CurrentReproductionGroup>k__BackingField: {fileID: 11400000, guid: 841870d61dfb88f42b345aef5c6ad3ab, type: 2}
-  <MinLifetimeSeconds>k__BackingField: 30
-  <MaxLifetimeSeconds>k__BackingField: 120
+  <MinLifetimeSeconds>k__BackingField: 60
+  <MaxLifetimeSeconds>k__BackingField: 80
   <CurrentPartner>k__BackingField: {fileID: 0}
   <PartnerRequested>k__BackingField: 0
   <HasReproduced>k__BackingField: 0

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MinSpeed>k__BackingField: 3
-  <MaxSpeed>k__BackingField: 7
+  <MaxSpeed>k__BackingField: 5.3
   <CurrentSpeed>k__BackingField: 0
   <CollisionDetectDistance>k__BackingField: 10
   <MaxSteerSpeed>k__BackingField: 1.8
@@ -54,31 +54,32 @@ MonoBehaviour:
   <MoveVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   <CollisionDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   <CollisionNotDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  <MaxEnergy>k__BackingField: 200
-  <MaxStartEnergy>k__BackingField: 0.8
-  <MinStartEnergy>k__BackingField: 0.4
-  <RegenerationSpeed>k__BackingField: 0.3
+  <MaxEnergy>k__BackingField: 180
+  <MaxStartEnergy>k__BackingField: 0.65
+  <MinStartEnergy>k__BackingField: 0.65
+  <RegenerationSpeed>k__BackingField: 0
   <MaxEnergyDecaySpeed>k__BackingField: 0.1
   <DecaySpeedThreshold>k__BackingField: 0.8
   <MaxSpeedDecay>k__BackingField: 0.8
   <CurrentEnergy>k__BackingField: 0
   <RealMaxSpeed>k__BackingField: 0
   <RealMaxSteerSpeed>k__BackingField: 0
-  <PartnerViewRange>k__BackingField: 15
-  <MinEnergyRatioForReproduction>k__BackingField: 0.8
-  <ReproductionCooldown>k__BackingField: 70
-  <ReproductionRange>k__BackingField: 0.4
-  <ReproductionEnergyPercentCost>k__BackingField: 0.3
+  <PartnerViewRange>k__BackingField: 25
+  <MinEnergyRatioForReproduction>k__BackingField: 0.7
+  <ReproductionCooldown>k__BackingField: 49
+  <ReproductionRange>k__BackingField: 3
+  <ReproductionEnergyPercentCost>k__BackingField: 0.6
   <CurrentReproductionGroup>k__BackingField: {fileID: 11400000, guid: 23e31c7aa79625d4c997add0d83761d9, type: 2}
-  <MinLifetimeSeconds>k__BackingField: 100
-  <MaxLifetimeSeconds>k__BackingField: 200
+  <MinLifetimeSeconds>k__BackingField: 90
+  <MaxLifetimeSeconds>k__BackingField: 110
   <CurrentPartner>k__BackingField: {fileID: 0}
   <PartnerRequested>k__BackingField: 0
   <HasReproduced>k__BackingField: 0
   <LifetimeSeconds>k__BackingField: 0
-  <ViewRange>k__BackingField: 50
-  <KillRange>k__BackingField: 0.5
-  <EnergyForKill>k__BackingField: 20
+  <ViewRange>k__BackingField: 15
+  <KillRange>k__BackingField: 3
+  <KillTimer>k__BackingField: 9.5
+  <EnergyForKill>k__BackingField: 50
   <CurrentTarget>k__BackingField: {fileID: 0}
   <CurrentDistance>k__BackingField: 0
   <TargetVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}

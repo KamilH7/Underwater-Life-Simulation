@@ -6,9 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="77c63094-bc65-4fdb-ab0f-35f49b4efebf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Underwater-Life-Simulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Underwater-Life-Simulation/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ComputeShaders/BoidCompute.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ComputeShaders/BoidCompute.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/FlockableFish.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/FlockableFish.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Predator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Predator.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/MovingFish.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/PredatorFish/PredatorFish.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/PredatorFish/PredatorFish.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/SimulationSpeedSlider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/SimulationSpeedSlider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UI.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +24,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1d3dacd00ce441dc8c61d528a2193088158400/2d/cd47d138/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1d3dacd00ce441dc8c61d528a2193088158400/5a/fbc598e4/Vector3.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1d3dacd00ce441dc8c61d528a2193088158400/78/99fd0fe6/Random.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1d3dacd00ce441dc8c61d528a2193088158400/90/7713b73a/Gizmos.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AI/EnergyBasedFish.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/DataLabel.cs" root0="FORCE_HIGHLIGHTING" />
@@ -92,6 +99,9 @@
       <workItem from="1675002310048" duration="12965000" />
       <workItem from="1675518661427" duration="11260000" />
       <workItem from="1675600999798" duration="14531000" />
+      <workItem from="1676719324403" duration="892000" />
+      <workItem from="1676721120603" duration="14472000" />
+      <workItem from="1676804880449" duration="9285000" />
     </task>
     <servers />
   </component>
