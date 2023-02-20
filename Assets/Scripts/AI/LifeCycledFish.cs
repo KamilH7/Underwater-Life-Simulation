@@ -31,13 +31,13 @@ public class LifeCycledFish : EnergyBasedFish
     [field: SerializeField]
     private float MaxLifetimeSeconds { get; set; }
 
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     private LifeCycledFish CurrentPartner { get; set; }
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     private bool PartnerRequested { get; set; }
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     private bool HasReproduced { get; set; }
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     private float LifetimeSeconds { get; set; }
 
     #region Unity Callbacks

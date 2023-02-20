@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4918305325236369671}
   - component: {fileID: 4918305325236369670}
   m_Layer: 0
-  m_Name: Flock
+  m_Name: FlockSpawner
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnAutomatically: 1
-  spawnRange: 20
+  spawnRange: 5
   fishPrefab: {fileID: 5941912355943017026, guid: 7ad363b84671ad54995d2fb83cb71575, type: 3}
   spawnAmount: 200
   <CurrentFishes>k__BackingField: []

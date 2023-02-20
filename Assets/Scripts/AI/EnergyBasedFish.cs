@@ -21,13 +21,13 @@ public class EnergyBasedFish : MovingFish
     [field: SerializeField, Range(0f, 1f)]
     public float MaxSpeedDecay { get; protected set; }
 
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     public float CurrentEnergy { get; set; }
 
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     public float RealMaxSpeed { get; set; }
     
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     public float RealMaxSteerSpeed { get; set; }
 
     #endregion

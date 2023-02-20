@@ -6,26 +6,26 @@ public class FlockableFish : LifeCycledFish
 {
     [field: Header("Flockable fish values"), SerializeField, Range(0f,1f)]
     protected float EnergySpentOnFlocking { get; set; }
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     protected Flock CurrentFlock { get; set; }
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     protected Vector3 AvgPosition { get; set; }
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     protected Vector3 AvgMoveVector { get; set; }
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     protected Vector3 AvgNeighbourAvoidanceVector { get; set; }
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     protected Vector3 AvgPredatorAvoidanceVector { get; set; }
 
-    [field: Header("Flockable fish debug settings"), SerializeField, ShowIf(nameof(DebugMode))]
+    //[field: Header("Flockable fish debug settings"), SerializeField, ShowIf(nameof(DebugMode))]
     private Color AlignmentBehaviourColour { get; set; }
-    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    //[field: SerializeField, ShowIf(nameof(DebugMode))]
     private Color CohesionBehaviourColour { get; set; }
-    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    //[field: SerializeField, ShowIf(nameof(DebugMode))]
     private Color SeparationBehaviourColour { get; set; }
-    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    //[field: SerializeField, ShowIf(nameof(DebugMode))]
     private Color PredatorAvoidanceBehaviourColour { get; set; }
-    [field: SerializeField, ShowIf(nameof(DebugMode))]
+    //[field: SerializeField, ShowIf(nameof(DebugMode))]
     private Color FinalBehaviourColour { get; set; }
 
     #region Unity Callbacks

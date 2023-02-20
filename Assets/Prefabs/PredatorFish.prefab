@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4428553604292058270}
   - component: {fileID: 4428553604292058269}
   m_Layer: 0
-  m_Name: Predator
+  m_Name: PredatorFish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,15 +104,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2297401192619346214, guid: 2222d6bba88bffc42b1038e1a5b7e05d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 69.577934
+      value: 42.53198
       objectReference: {fileID: 0}
     - target: {fileID: 2297401192619346214, guid: 2222d6bba88bffc42b1038e1a5b7e05d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 232.08084
+      value: 141.86763
       objectReference: {fileID: 0}
     - target: {fileID: 2297401192619346214, guid: 2222d6bba88bffc42b1038e1a5b7e05d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 69.577934
+      value: 42.53198
       objectReference: {fileID: 0}
     - target: {fileID: 2297401192619346214, guid: 2222d6bba88bffc42b1038e1a5b7e05d, type: 3}
       propertyPath: m_LocalPosition.x

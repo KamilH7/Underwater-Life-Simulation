@@ -9,7 +9,7 @@ public abstract class MovingFish : MonoBehaviour, IFish
     public float MinSpeed { get; protected set; }
     [field: SerializeField]
     public float MaxSpeed { get; protected set; }
-    [field: SerializeField, ReadOnly]
+    //[field: SerializeField, ReadOnly]
     public float CurrentSpeed { get; private set; }
     public Vector3 MoveVector { get; protected set; }
 
@@ -21,7 +21,7 @@ public abstract class MovingFish : MonoBehaviour, IFish
 
     #endregion
 
-    [field: Header("Debug"), SerializeField]
+    //[field: Header("Debug"), SerializeField]
     protected bool DebugMode { get; set; }
     [field: SerializeField, ShowIf(nameof(DebugMode))]
     private Color MoveVectorColor { get; set; }
