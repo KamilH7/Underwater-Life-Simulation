@@ -47,10 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MinSpeed>k__BackingField: 3
   <MaxSpeed>k__BackingField: 5.2
-  <CurrentSpeed>k__BackingField: 0
   <CollisionDetectDistance>k__BackingField: 10
   <MaxSteerSpeed>k__BackingField: 1.8
-  <DebugMode>k__BackingField: 0
   <MoveVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   <CollisionDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
   <CollisionNotDetectedColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
@@ -61,9 +59,6 @@ MonoBehaviour:
   <MaxEnergyDecaySpeed>k__BackingField: 0.1
   <DecaySpeedThreshold>k__BackingField: 0.8
   <MaxSpeedDecay>k__BackingField: 0.8
-  <CurrentEnergy>k__BackingField: 0
-  <RealMaxSpeed>k__BackingField: 0
-  <RealMaxSteerSpeed>k__BackingField: 0
   <PartnerViewRange>k__BackingField: 25
   <MinEnergyRatioForReproduction>k__BackingField: 0.55
   <ReproductionCooldown>k__BackingField: 30
@@ -72,14 +67,10 @@ MonoBehaviour:
   <CurrentReproductionGroup>k__BackingField: {fileID: 11400000, guid: 23e31c7aa79625d4c997add0d83761d9, type: 2}
   <MinLifetimeSeconds>k__BackingField: 60
   <MaxLifetimeSeconds>k__BackingField: 90
-  <CurrentPartner>k__BackingField: {fileID: 0}
-  <PartnerRequested>k__BackingField: 0
-  <HasReproduced>k__BackingField: 0
-  <LifetimeSeconds>k__BackingField: 0
   <ViewRange>k__BackingField: 10
   <KillRange>k__BackingField: 3
-  <KillTimer>k__BackingField: 16
-  <EnergyForKill>k__BackingField: 60
+  <KillTimer>k__BackingField: 16.5
+  <EnergyForKill>k__BackingField: 55
   <CurrentTarget>k__BackingField: {fileID: 0}
   <CurrentDistance>k__BackingField: 0
   <TargetVectorColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
